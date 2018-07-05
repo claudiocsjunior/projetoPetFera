@@ -19,6 +19,7 @@
 #include "../include/ave.h"
 #include <string>
 #include <map>
+#include <fstream> /**< Inclusão da lib fstream*/
 
 class PetFera
 {
@@ -133,6 +134,17 @@ public:
 	* @return 
 	*/
 	void consultar_filtro_classe();
+
+	/**
+	* @brief método de recuperação das informações dos arquivos
+	* @return 
+	*/
+	void recuperar_informacoes_arquivo();
+	/**
+	* @brief método para salvar informações em arquivos
+	* @return 
+	*/
+	void salvar_informacoes_arquivo();
 		
 
 };

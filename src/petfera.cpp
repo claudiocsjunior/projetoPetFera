@@ -953,5 +953,40 @@ void PetFera::consultar_filtro_classe(){
     	cerr<<"Erro: "<<err.what()<<endl;
     }
 }
+/**
+* @brief método de recuperação das informações dos arquivos
+* @return 
+*/
+void PetFera::recuperar_informacoes_arquivo(){
+	cout << "AINDA NÃO HÁ DADOS" << endl;
+}
+/**
+* @brief método para salvar informações em arquivos
+* @return 
+*/
+void PetFera::salvar_informacoes_arquivo(){
+	fstream arqFuncionarios;
+	arqFuncionarios.open("funcionarios.csv");
+
+	if (arqFuncionarios.is_open())
+	{
+		map<int,Funcionario>::iterator it;
+		for (it = funcionarios.begin(); it != funcionarios.end(); ++it){
+			arqFuncionarios << it->second.getId() << ";" << 
+							   it->second.getFuncao() << ";" <<
+							   it->second.getNome() << ";" <<
+							   it->second.getCpf() << ";" <<
+							   it->second.getIdade() << ";" <<
+							   it->second.getTipoSanguineo() << ";" <<
+							   it->second.getFatorRH() << ";" <<
+							   it->second.getEspecialidade() << endl;	   
+		}
+	}else{
+		cout << "Arquivo de funcionarios não foi encontrado. Verificar o caminho do arquivo." << endl;
+	}
+	arqFuncionarios.close();
+
+	//criar a dos animais
+}
 
 
