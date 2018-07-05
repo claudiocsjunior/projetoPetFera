@@ -84,7 +84,37 @@ public:
 	* @brief Método de alteração do tratador
 	* @return 
 	*/
-	void setTratador(Tratador &tratador);
+	void setTratador(Tratador &tratador);	
+	/**
+	* @brief Método de alteração do atributo cientifico
+	* @return 
+	*/
+	void setCientifico(std::string cientifico);
+	/**
+	* @brief Método de alteração para o atributo nome
+	* @return 
+	*/
+	void setNome(std::string nome);
+	/**
+	* @brief Método de alteração para o atributo sexo
+	* @return 
+	*/
+	void setSexo(char sexo);
+	/**
+	* @brief Método de alteração para o atributo tamanho
+	* @return 
+	*/
+	void setTamanho(float tamanho);
+	/**
+	* @brief Método de alteração para o atributo dieta
+	* @return 
+	*/
+	void setDieta(std::string dieta);
+	/**
+	* @brief Método de alteração para o atributo batismo
+	* @return 
+	*/
+	void setBatismo(std::string batismo);
 	/**
 	* @brief Método de alteração do id
 	* @return 
@@ -111,6 +141,12 @@ public:
 	* @return booleano
 	*/
 	bool operator ==(Animal &animal);
+	/**
+	* @brief Efetua a impressão dos dados
+	* @param[in] variável para o <<
+	* @return valor do cout
+	*/
+	virtual std::ostream& print(std::ostream&);
 
 };
 

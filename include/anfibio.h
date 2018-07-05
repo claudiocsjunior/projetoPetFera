@@ -34,6 +34,23 @@ public:
 	* @return atributo ultima muda
 	*/
 	std::string getUltimaMuda();
+	/**
+	* @brief Método de alteração do total de mudas
+	* @return 
+	*/
+	void setTotalmudas(int total_mudas);
+	/**
+	* @brief Método de alteração da ultima muda
+	* @return 
+	*/
+	void setUltimaMuda(std::string ultima_muda);
+	 
+	/**
+	* @brief Efetua a impressão dos dados
+	* @param[in] variável para o <<
+	* @return valor do cout
+	*/
+	std::ostream& print(std::ostream &o);
 
 };
 

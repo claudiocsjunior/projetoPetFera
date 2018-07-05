@@ -13,15 +13,24 @@
 #include "../include/veterinario.h"
 #include "../include/tratador.h"
 #include "../include/animal.h"
+#include "../include/anfibio.h"
+#include "../include/mamifero.h"
+#include "../include/reptil.h"
+#include "../include/ave.h"
 #include <string>
 #include <map>
 
 class PetFera
 {
-protected:
+
+public:
 	map<int, Funcionario> funcionarios;	
 	map<int, Animal> animais;
-public:
+	map<int, Anfibio> anfibios;
+	map<int, Mamifero> mamiferos;
+	map<int, Reptil> repteis;
+	map<int, Ave> aves;
+
 	PetFera(); /**< Construtor padrão da Classe*/
 	~PetFera(); /**< Destrutor da Classe*/
 	/**
@@ -75,11 +84,55 @@ public:
 	*/
 	void adicionar_anfibio();
 	/**
+	* @brief método de adição de um mamífero
+	* @return 
+	*/
+	void adicionar_mamifero();
+	/**
+	* @brief método de adição de um réptil
+	* @return 
+	*/
+	void adicionar_reptil();
+	/**
+	* @brief método de adição de uma ave
+	* @return 
+	*/
+	void adicionar_ave();
+	/**
 	* @brief método que busca os responsaveis do animal
 	* @return booleano
 	*/
 	bool buscar_responsaveis(Animal &animal);
-
+	/**
+	* @brief método de remoção de um animal
+	* @return 
+	*/
+	void remover_comercializar_animal();
+	/**
+	* @brief método de consulta de um animal sem filtros
+	* @return 
+	*/
+	void consultar_animais();
+	/**
+	* @brief método de alteração dos dados do animal
+	* @return 
+	*/
+	void editar_animal();
+	/**
+	* @brief método de consulta com filtragem por animal ou por classe
+	* @return 
+	*/
+	void consultar_filtro_animal_classe();
+	/**
+	* @brief método de consulta com filtragem por animal 
+	* @return 
+	*/
+	void consultar_filtro_nome_animal();
+	/**
+	* @brief método de consulta com filtragem por classe 
+	* @return 
+	*/
+	void consultar_filtro_classe();
 		
 
 };

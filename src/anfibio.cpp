@@ -41,4 +41,42 @@ int Anfibio::getTotalMudas(){
 std::string Anfibio::getUltimaMuda(){
 	return this->ultima_muda;
 }
+/**
+* @brief Método de alteração do total de mudas
+* @return 
+*/
+void Anfibio::setTotalmudas(int total_mudas){
+	this->total_mudas = total_mudas;
+}
+/**
+* @brief Método de alteração da ultima muda
+* @return 
+*/
+void Anfibio::setUltimaMuda(std::string ultima_muda){
+	this->ultima_muda = ultima_muda;
+}
+
+/**
+* @brief Efetua a impressão dos dados
+* @param[in] variável para o <<
+* @return valor do cout
+*/
+std::ostream& 
+Anfibio::print(std::ostream &o) {
+	o << "ID: "<< this->id
+	  << "| NOME: " << this->nome
+	  << "| NOME CIENTIFICO: " <<  this->cientifico
+	  << "| CLASSE: " <<  this->classe
+	  << "| SEXO: " << this->sexo
+	  << "| TAMANHO: " <<  this->tamanho
+	  << "| DIETA: " <<  this->dieta
+	  << "| BATISMO: " <<  this->batismo
+	  << "| VETERINÁRIO: " << "[ código: " << this->veterinario.getId() <<  " Nome: " << this->veterinario.getNome() << "]"
+	  << "| TRATADOR: " << "[ código " << this->tratador.getId() <<  " Nome: " << this->tratador.getNome() << "]"
+	  << endl << "                  -> DETALHES: " 
+	  << "| TOTAL DE MUDAS: " <<  this->total_mudas
+	  << "| ULTIMA MUDA: " <<  this->ultima_muda
+	  << endl;
+	return o;
+}
 

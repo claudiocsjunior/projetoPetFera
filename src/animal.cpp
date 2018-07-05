@@ -130,6 +130,49 @@ void Animal::setId(int id){
 }
 
 /**
+* @brief Método de alteração do atributo cientifico
+* @return 
+*/
+void Animal::setCientifico(string nome_cientifico){
+	this->cientifico = nome_cientifico;
+}
+/**
+* @brief Método de alteração para o atributo nome
+* @return 
+*/
+void Animal::setNome(string nome){
+	this->nome = nome;
+}
+/**
+* @brief Método de alteração para o atributo sexo
+* @return 
+*/
+void Animal::setSexo(char sexo){
+	this->sexo = sexo;
+}
+/**
+* @brief Método de alteração para o atributo tamanho
+* @return 
+*/
+void Animal::setTamanho(float tamanho){
+	this->tamanho = tamanho;
+}
+/**
+* @brief Método de alteração para o atributo dieta
+* @return 
+*/
+void Animal::setDieta(string dieta){
+	this->dieta = dieta;
+}
+/**
+* @brief Método de alteração para o atributo batismo
+* @return 
+*/
+void Animal::setBatismo(string batismo){
+	this->batismo = batismo;
+}
+
+/**
 * @brief Efetua a sobrecarga do operador >>
 * @param[in] variável para o >>
 * @param[in] Constante para guardar o objeto
@@ -167,19 +210,30 @@ istream& operator>>(istream &i, Animal &a){
 * @param[in] Constante para guardar o objeto
 * @return valor do cout
 */
-ostream& operator<<(ostream &e, Animal &a){
-	e << "ID: "<< a.id
-	  << "| NOME: " << a.nome
-	  << "| NOME CIENTIFICO: " <<  a.cientifico
-	  << "| CLASSE: " <<  a.classe
-	  << "| SEXO: " << a.sexo
-	  << "| TAMANHO: " <<  a.tamanho
-	  << "| DIETA: " <<  a.dieta
-	  << "| BATISMO: " <<  a.batismo
-	  << "| VETERINÁRIO: " <<  a.veterinario.getNome()
-	  << "| TRATADOR: " <<  a.tratador.getNome()
+std::ostream& operator<< (std::ostream &o, Animal &a) {
+	return a.print(o);
+}
+
+ 
+/**
+* @brief Efetua a impressão dos dados
+* @param[in] variável para o <<
+* @return valor do cout
+*/
+std::ostream& 
+Animal::print(std::ostream &o) {
+	o << "ID: "<< this->id
+	  << "| NOME: " << this->nome
+	  << "| NOME CIENTIFICO: " <<  this->cientifico
+	  << "| CLASSE: " <<  this->classe
+	  << "| SEXO: " << this->sexo
+	  << "| TAMANHO: " <<  this->tamanho
+	  << "| DIETA: " <<  this->dieta
+	  << "| BATISMO: " <<  this->batismo
+	  << "| VETERINÁRIO: " << "[ código: " << this->veterinario.getId() <<  " Nome: " << this->veterinario.getNome() << "]"
+	  << "| TRATADOR: " << "[ código " << this->tratador.getId() <<  " Nome: " << this->tratador.getNome() << "]"
 	  << endl;
-	return e;
+	return o;
 }
 
 
