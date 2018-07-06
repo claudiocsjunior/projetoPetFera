@@ -47,6 +47,7 @@ public:
 	map<int, ReptilExotico> repteis_exoticos;
 	map<int, AveNativa> aves_nativas;
 	map<int, AveExotica> aves_exoticas;
+	map<int, Animal> mapeamento_busca;
 	
 	PetFera(); /**< Construtor padrão da Classe*/
 	~PetFera(); /**< Destrutor da Classe*/
@@ -124,7 +125,7 @@ public:
 	* @brief método de remoção de um animal
 	* @return 
 	*/
-	//void remover_comercializar_animal();
+	void remover_comercializar_animal();
 	/**
 	* @brief método de consulta de um animal sem filtros
 	* @return 
@@ -134,22 +135,27 @@ public:
 	* @brief método de alteração dos dados do animal
 	* @return 
 	*/
-	//void editar_animal();
+	void editar_animal();
 	/**
 	* @brief método de consulta com filtragem por animal ou por classe
 	* @return 
 	*/
-	//void consultar_filtro_animal_classe();
+	void consultar_filtro_animal_classe();
 	/**
 	* @brief método de consulta com filtragem por animal 
 	* @return 
 	*/
-	//void consultar_filtro_nome_animal();
+	void consultar_filtro_nome_animal();
 	/**
 	* @brief método de consulta com filtragem por classe 
 	* @return 
 	*/
-	//void consultar_filtro_classe();
+	void consultar_filtro_classe();
+	/**
+	* @brief método de consulta com filtragem por veterinário ou tratador
+	* @return 
+	*/
+	void consultar_filtro_veterinario_tratador();
 
 	/**
 	* @brief método de recuperação das informações dos arquivos

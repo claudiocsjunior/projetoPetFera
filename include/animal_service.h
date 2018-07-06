@@ -35,6 +35,7 @@ public:
 	AnimalService(); /**< Construtor padrão da Classe*/
 	~AnimalService(); /**< Destrutor da Classe*/
 	T adicionar(T &animal, PetFera* petFera);
+	T editar(T &animal, PetFera* petFera);
 	bool alterar_detalhes(Animal &animal, T &tipo_animal,PetFera* petFera);
 };
 
@@ -62,8 +63,40 @@ T AnimalService<T>::adicionar (T &animal, PetFera* petFera) {
 			system("clear");
 			cout << "______________________________________________________________" << endl;
 			cout << "ANIMAL SALVO COM SUCESSO!" << endl;
+			Animal::contador_animal_id++;
 			return animal;
 		}
+
+		
+	}catch(invalid_argument &ex){
+		cin.clear();
+    	cin.ignore(numeric_limits<streamsize>::max(), '\n');
+		cerr<<"Erro: "<<ex.what()<<endl;
+		return animal_de_retorno_erro;
+	}  
+} 
+
+template <typename T>
+T AnimalService<T>::editar (T &animal, PetFera* petFera) { 
+   T animal_de_retorno_erro;
+   try{
+   		animal_de_retorno_erro.setId(0);
+   		cout << "______________________________________________________________" << endl;
+		cout << "DADOS ATUAIS DO ANIMAL:" << endl;
+		cout << animal << endl;
+		cout << "______________________________________________________________" << endl;
+
+   		if(!petFera->buscar_responsaveis(animal))
+			return animal_de_retorno_erro;
+	
+		cin >> animal;
+		if(cin.fail()){
+			cout << "______________________________________________________________" << endl;
+			throw invalid_argument("ARGUMENTO INVALIDO. ALGUM CAMPO FOI PREENCHIDO INADEQUADAMENTE.");
+		}else{
+			return animal;
+		}
+
 
 		
 	}catch(invalid_argument &ex){

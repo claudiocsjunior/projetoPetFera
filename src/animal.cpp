@@ -110,6 +110,14 @@ string Animal::getBatismo(){
 }
 
 /**
+* @brief Método de acesso para o atributo batismo
+* @return atributo batismo
+*/
+string Animal::getNatureza(){
+	return this->natureza;
+}
+
+/**
 * @brief Método de alteração do veterinario
 * @return 
 */

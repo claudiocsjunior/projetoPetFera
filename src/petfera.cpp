@@ -95,15 +95,16 @@ void PetFera::funcionalidades(){
 						adicionar_animal();
 						break;
 					case 6:
-						//remover_comercializar_animal();
+						remover_comercializar_animal();
 						break;
 					case 7:
-						//editar_animal();
+						editar_animal();
 						break;
 					case 8:
-						//consultar_filtro_animal_classe();
+						consultar_filtro_animal_classe();
 						break;
 					case 9:
+						consultar_filtro_veterinario_tratador();
 						break;
 					case 10: 
 						consultar_animais();
@@ -515,17 +516,23 @@ void PetFera::adicionar_anfibio(){
 				AnimalService<AnfibioNativo> animal;
 				AnfibioNativo anfibio_nativo;
 				AnfibioNativo anfibio_nativo_retorno = animal.adicionar(anfibio_nativo, this);
-				if(anfibio_nativo_retorno.getId() != 0)
+				if(anfibio_nativo_retorno.getId() != 0){
 					anfibios_nativos[anfibio_nativo_retorno.getId()] = anfibio_nativo_retorno;
+					Animal & animalBasico = static_cast<Animal&>(anfibio_nativo_retorno);
+					mapeamento_busca[anfibio_nativo_retorno.getId()] = animalBasico;
+				}
+
 
 			}
 			else if(escolha_natureza == 2){
 				AnimalService<AnfibioExotico> animal;
 				AnfibioExotico anfibio_exotico;
 				AnfibioExotico anfibio_exotico_retorno = animal.adicionar(anfibio_exotico, this);
-				if(anfibio_exotico_retorno.getId() != 0)
+				if(anfibio_exotico_retorno.getId() != 0){
 					anfibios_exoticos[anfibio_exotico_retorno.getId()] = anfibio_exotico_retorno;
-
+					Animal & animalBasico = static_cast<Animal&>(anfibio_exotico_retorno);
+					mapeamento_busca[anfibio_exotico_retorno.getId()] = animalBasico;
+				}
 			}	
 			else{
 				throw invalid_argument("ARGUMENTO INVALIDO. PARÂMETRO FORA DO ESCOPO DA LISTAGEM.");
@@ -576,16 +583,23 @@ void PetFera::adicionar_mamifero(){
 				AnimalService<MamiferoNativo> animal;
 				MamiferoNativo mamifero_nativo;
 				MamiferoNativo mamifero_nativo_retorno = animal.adicionar(mamifero_nativo, this);
-				if(mamifero_nativo_retorno.getId() != 0)
+				if(mamifero_nativo_retorno.getId() != 0){
 					mamiferos_nativos[mamifero_nativo_retorno.getId()] = mamifero_nativo_retorno;
+					Animal & animalBasico = static_cast<Animal&>(mamifero_nativo_retorno);
+					mapeamento_busca[mamifero_nativo_retorno.getId()] = animalBasico;
+				}
+
 
 			}
 			else if(escolha_natureza == 2){
 				AnimalService<MamiferoExotico> animal;
 				MamiferoExotico mamifero_exotico;
 				MamiferoExotico mamifero_exotico_retorno = animal.adicionar(mamifero_exotico, this);
-				if(mamifero_exotico_retorno.getId() != 0)
+				if(mamifero_exotico_retorno.getId() != 0){
 					mamiferos_exoticos[mamifero_exotico_retorno.getId()] = mamifero_exotico_retorno;
+					Animal & animalBasico = static_cast<Animal&>(mamifero_exotico_retorno);
+					mapeamento_busca[mamifero_exotico_retorno.getId()] = animalBasico;
+				}
 
 			}	
 			else{
@@ -636,16 +650,23 @@ void PetFera::adicionar_reptil(){
 				AnimalService<ReptilNativo> animal;
 				ReptilNativo reptil_nativo;
 				ReptilNativo reptil_nativo_retorno = animal.adicionar(reptil_nativo, this);
-				if(reptil_nativo_retorno.getId() != 0)
+				if(reptil_nativo_retorno.getId() != 0){
 					repteis_nativos[reptil_nativo_retorno.getId()] = reptil_nativo_retorno;
+					Animal & animalBasico = static_cast<Animal&>(reptil_nativo_retorno);
+					mapeamento_busca[reptil_nativo_retorno.getId()] = animalBasico;
+				}
+
 
 			}
 			else if(escolha_natureza == 2){
 				AnimalService<ReptilExotico> animal;
 				ReptilExotico reptil_exotico;
 				ReptilExotico reptil_exotico_retorno = animal.adicionar(reptil_exotico, this);
-				if(reptil_exotico_retorno.getId() != 0)
+				if(reptil_exotico_retorno.getId() != 0){
 					repteis_exoticos[reptil_exotico_retorno.getId()] = reptil_exotico_retorno;
+					Animal & animalBasico = static_cast<Animal&>(reptil_exotico_retorno);
+					mapeamento_busca[reptil_exotico_retorno.getId()] = animalBasico;
+				}
 
 			}	
 			else{
@@ -698,8 +719,12 @@ void PetFera::adicionar_ave(){
 				AnimalService<AveNativa> animal;
 				AveNativa ave_nativo;
 				AveNativa ave_nativo_retorno = animal.adicionar(ave_nativo, this);
-				if(ave_nativo_retorno.getId() != 0)
+				if(ave_nativo_retorno.getId() != 0){
 					aves_nativas[ave_nativo_retorno.getId()] = ave_nativo_retorno;
+					Animal & animalBasico = static_cast<Animal&>(ave_nativo_retorno);
+					mapeamento_busca[ave_nativo_retorno.getId()] = animalBasico;
+				}
+
 
 			}
 
@@ -707,8 +732,12 @@ void PetFera::adicionar_ave(){
 				AnimalService<AveExotica> animal;
 				AveExotica ave_exotica;
 				AveExotica ave_exotica_retorno = animal.adicionar(ave_exotica, this);
-				if(ave_exotica_retorno.getId() != 0)
+				if(ave_exotica_retorno.getId() != 0){
 					aves_exoticas[ave_exotica_retorno.getId()] = ave_exotica_retorno;
+					Animal & animalBasico = static_cast<Animal&>(ave_exotica_retorno);
+					mapeamento_busca[ave_exotica_retorno.getId()] = animalBasico;
+				}
+
 			}	
 			else{
 				throw invalid_argument("ARGUMENTO INVALIDO. PARÂMETRO FORA DO ESCOPO DA LISTAGEM.");
@@ -851,7 +880,7 @@ void PetFera::consultar_animais(){
 * @brief método de remoção de um animal
 * @return 
 */
-/*
+
 void PetFera::remover_comercializar_animal(){
 	try{
 		system("clear");
@@ -859,140 +888,197 @@ void PetFera::remover_comercializar_animal(){
 		int id;
 		cout << "INFORME O ID DO ANIMAL PARA EXCLUSÃO: " ;
 		cin >> id;
-		if(cin.fail())
-			throw invalid_argument("ARGUMENTO INVALIDO. INFORME UM INTEIRO PARA O ID."); 
-		
-		bool encontrado = false; 
+		if(!cin.fail()){
+			map<int, Animal>::iterator it = mapeamento_busca.find(id);
+			if (it != mapeamento_busca.end()){
+				if(it->second.getClasse() == "Amphibia" && it->second.getNatureza() == "Nativo"){
+					map<int, AnfibioNativo>::iterator an = anfibios_nativos.find(id);
+					if (an != anfibios_nativos.end())
+    					anfibios_nativos.erase(an);
 
-		map<int,Animal>::iterator it;
-		for (it = animais.begin(); it != animais.end(); ++it){
-			if(it->first == id){
-				encontrado = true;
-				break;
+				}else if(it->second.getClasse() == "Amphibia" && it->second.getNatureza() == "Exotico"){
+					map<int, AnfibioExotico>::iterator ae = anfibios_exoticos.find(id);
+					if (ae != anfibios_exoticos.end())
+    					anfibios_exoticos.erase(ae);
+
+				}else if(it->second.getClasse() == "Mammalia" && it->second.getNatureza() == "Nativo"){
+					map<int, MamiferoNativo>::iterator mn = mamiferos_nativos.find(id);
+					if (mn != mamiferos_nativos.end())
+    					mamiferos_nativos.erase(mn);
+
+				}else if(it->second.getClasse() == "Mammalia" && it->second.getNatureza() == "Exotico"){
+					map<int, MamiferoExotico>::iterator me = mamiferos_exoticos.find(id);
+					if (me != mamiferos_exoticos.end())
+    					mamiferos_exoticos.erase(me);
+
+				}else if(it->second.getClasse() == "Reptilia" && it->second.getNatureza() == "Nativo"){
+					map<int, ReptilNativo>::iterator rn = repteis_nativos.find(id);
+					if (rn != repteis_nativos.end())
+    					repteis_nativos.erase(rn);
+
+				}else if(it->second.getClasse() == "Reptilia" && it->second.getNatureza() == "Exotico"){
+					map<int, ReptilExotico>::iterator re = repteis_exoticos.find(id);
+					if (re != repteis_exoticos.end())
+    					repteis_exoticos.erase(re);
+
+				}else if(it->second.getClasse() == "Aves" && it->second.getNatureza() == "Nativo"){
+					map<int, AveNativa>::iterator an = aves_nativas.find(id);
+					if (an != aves_nativas.end())
+    					aves_nativas.erase(an);
+
+				}else if(it->second.getClasse() == "Aves" && it->second.getNatureza() == "Exotico"){
+					map<int, AveExotica>::iterator aex = aves_exoticas.find(id);
+					if (aex != aves_exoticas.end())
+    					aves_exoticas.erase(aex);
+				}	
+
+				mapeamento_busca.erase(it);
+				
+				system("clear");
+				cout << "______________________________________________________________" << endl;
+				cout << "ANIMAL EXCLUIDO COM SUCESSO!" << endl;			
+			}else{
+				system("clear");
+				cout << "______________________________________________________________" << endl;
+				throw invalid_argument("ANIMAL NÃO ENCONTRADO."); 
 			}
-		}
-		if(encontrado){
-			this->animais.erase(id);
-			system("clear");
-			cout << "______________________________________________________________" << endl;
-			cout << "ANIMAL REMOVIDO/COMERCIALIZADO COM SUCESSO!" << endl; 
 		}else{
 			system("clear");
-			throw invalid_argument("NÃO HÁ ANIMAL COM O ID INFORMADO");
-		}
+			cout << "______________________________________________________________" << endl;
+			throw invalid_argument("ARGUMENTO INVALIDO. INFORME UM INTEIRO PARA O ID."); 
+			
 
+		}
 	}catch(invalid_argument &ex){
 		system("clear");
 		cout << "______________________________________________________________" << endl;
 		cerr<<"ERRO: "<<ex.what()<<endl;
 	}
 }	
-*/
+
 
 /**
 * @brief método de alteração dos dados do animal
 * @return 
 */
-/*
+
 void PetFera::editar_animal(){
 	try{
 		system("clear");
 		cout << "______________________________________________________________" << endl;
-		if(!animais.empty()){
+		if(!mapeamento_busca.empty()){
 			int id;
 			cout << "INFORME O ID DO ANIMAL PARA ALTERAÇÃO: " ;
 			cin >> id;
-			bool encontrado = false;
-			map<int,Animal>::iterator it;
-			for (it = animais.begin(); it != animais.end(); ++it){
-				if(it->first == id){
-					encontrado = true;
-					break;
-				}
-			}
-			if(encontrado){			
-				map<int, Animal>::iterator busca = animais.find(id);
-				cout << "VALORES ATUAIS:" << endl;
-				cout << busca->second << endl; 
+			if(!cin.fail()){
+				map<int, Animal>::iterator it = mapeamento_busca.find(id);
+				if (it != mapeamento_busca.end()){
+					if(it->second.getClasse() == "Amphibia" && it->second.getNatureza() == "Nativo"){
+						map<int, AnfibioNativo>::iterator an = anfibios_nativos.find(id);
+						AnimalService<AnfibioNativo> animal;
+						AnfibioNativo anfibio_nativo_retorno = animal.editar(an->second, this);
 
-				string nome;
-				string cientifico;
-				char sexo;
-				float tamanho;
-				string dieta;
-				string batismo;
+						if(anfibio_nativo_retorno.getId() != 0){
+							anfibios_nativos[anfibio_nativo_retorno.getId()] = anfibio_nativo_retorno;
+							Animal & animalBasico = static_cast<Animal&>(anfibio_nativo_retorno);
+							mapeamento_busca[anfibio_nativo_retorno.getId()] = animalBasico;
+						}
 
-				cout << "DIGITE AS INFORMAÇÕES PARA ALTERAR O ANIMAL:" << endl;
-				cin.ignore();
-				cout << "NOME: ";
-				getline(cin, nome);
 
-				cout << "CIENTIFICO: ";
-				cin >> cientifico;
+					}else if(it->second.getClasse() == "Amphibia" && it->second.getNatureza() == "Exotico"){
+						map<int, AnfibioExotico>::iterator ae = anfibios_exoticos.find(id);
+						AnimalService<AnfibioExotico> animal;
+						AnfibioExotico anfibio_exotico_retorno = animal.editar(ae->second, this);
 
-				cout << "SEXO: ";
-				cin >> sexo;
+						if(anfibio_exotico_retorno.getId() != 0){
+							anfibios_exoticos[anfibio_exotico_retorno.getId()] = anfibio_exotico_retorno;
+							Animal & animalBasico = static_cast<Animal&>(anfibio_exotico_retorno);
+							mapeamento_busca[anfibio_exotico_retorno.getId()] = animalBasico;
+						}
 
-				cout << "TAMANHO: ";
-				cin >> tamanho;
+					}else if(it->second.getClasse() == "Mammalia" && it->second.getNatureza() == "Nativo"){
+						map<int, MamiferoNativo>::iterator mn = mamiferos_nativos.find(id);
+						AnimalService<MamiferoNativo> animal;
+						MamiferoNativo mamifero_nativo_retorno = animal.editar(mn->second, this);
 
-				cout << "DIETA: ";
-				cin >> dieta;
+						if(mamifero_nativo_retorno.getId() != 0){
+							mamiferos_nativos[mamifero_nativo_retorno.getId()] = mamifero_nativo_retorno;
+							Animal & animalBasico = static_cast<Animal&>(mamifero_nativo_retorno);
+							mapeamento_busca[mamifero_nativo_retorno.getId()] = animalBasico;
+						}
 
-				cin.ignore();
-				cout << "BATISMO: ";
-				getline(cin, batismo);
+					}else if(it->second.getClasse() == "Mammalia" && it->second.getNatureza() == "Exotico"){
+						map<int, MamiferoExotico>::iterator me = mamiferos_exoticos.find(id);
+						AnimalService<MamiferoExotico> animal;
+						MamiferoExotico mamifero_exotico_retorno = animal.editar(me->second, this);
 
-				if(cin.fail()){
-					cout << endl;
-					system("clear");
-					cout << "______________________________________________________________" << endl;
-					throw invalid_argument("ARGUMENTO INVALIDO. ALGUM CAMPO FOI PREENCHIDO INADEQUADAMENTE.");
-				}else{
-					busca->second.setNome(nome);
-					busca->second.setCientifico(cientifico);
-					busca->second.setSexo(sexo);
-					busca->second.setTamanho(tamanho);
-					busca->second.setDieta(dieta);
-					busca->second.setBatismo(batismo);
+						if(mamifero_exotico_retorno.getId() != 0){
+							mamiferos_exoticos[mamifero_exotico_retorno.getId()] = mamifero_exotico_retorno;
+							Animal & animalBasico = static_cast<Animal&>(mamifero_exotico_retorno);
+							mapeamento_busca[mamifero_exotico_retorno.getId()] = animalBasico;
+						}
 
-					cout << "______________________________________________________________" << endl;
-					cout << "DADOS ALTERADOS COM SUCESSO!" << endl << endl;
+					}else if(it->second.getClasse() == "Reptilia" && it->second.getNatureza() == "Nativo"){
+						map<int, ReptilNativo>::iterator rn = repteis_nativos.find(id);
+						AnimalService<ReptilNativo> animal;
+						ReptilNativo mamifero_nativo_retorno = animal.editar(rn->second, this);
 
-					cout << "ALTERAR DETALHES: " << endl;
-					bool detalhes_alterados = false;
-					if(busca->second.getClasse() == "Amphibia"){
-						map<int, Anfibio>::iterator busca_anfibio = anfibios.find(busca->second.getId());
-						Adicionar_animal<map<int, Anfibio>::iterator> animal;
-						detalhes_alterados = animal.alterar_detalhes(busca->second, busca_anfibio, this);
-					}
-					else if(busca->second.getClasse() == "Reptilia"){
-						map<int, Reptil>::iterator busca_reptil = repteis.find(busca->second.getId());
-						Adicionar_animal<map<int, Reptil>::iterator> animal;
-						detalhes_alterados = animal.alterar_detalhes(busca->second, busca_reptil, this);
-					}
-					else if(busca->second.getClasse() == "Aves"){
-						map<int, Ave>::iterator busca_ave = aves.find(busca->second.getId());
-						Adicionar_animal<map<int, Ave>::iterator> animal;
-						detalhes_alterados = animal.alterar_detalhes(busca->second, busca_ave, this);
-					}
-					else if(busca->second.getClasse() == "Mammalia"){
-						map<int, Mamifero>::iterator busca_mamifero = mamiferos.find(busca->second.getId());
-						Adicionar_animal<map<int, Mamifero>::iterator> animal;
-						detalhes_alterados = animal.alterar_detalhes(busca->second, busca_mamifero, this);
+						if(mamifero_nativo_retorno.getId() != 0){
+							repteis_nativos[mamifero_nativo_retorno.getId()] = mamifero_nativo_retorno;
+							Animal & animalBasico = static_cast<Animal&>(mamifero_nativo_retorno);
+							mapeamento_busca[mamifero_nativo_retorno.getId()] = animalBasico;
+						}
+
+					}else if(it->second.getClasse() == "Reptilia" && it->second.getNatureza() == "Exotico"){
+						map<int, ReptilExotico>::iterator re = repteis_exoticos.find(id);
+						AnimalService<ReptilExotico> animal;
+						ReptilExotico reptil_exotico_retorno = animal.editar(re->second, this);
+
+						if(reptil_exotico_retorno.getId() != 0){
+							repteis_exoticos[reptil_exotico_retorno.getId()] = reptil_exotico_retorno;
+							Animal & animalBasico = static_cast<Animal&>(reptil_exotico_retorno);
+							mapeamento_busca[reptil_exotico_retorno.getId()] = animalBasico;
+						}
+
+					}else if(it->second.getClasse() == "Aves" && it->second.getNatureza() == "Nativo"){
+						map<int, AveNativa>::iterator an = aves_nativas.find(id);
+						AnimalService<AveNativa> animal;
+						AveNativa ave_nativa_retorno = animal.editar(an->second, this);
+
+						if(ave_nativa_retorno.getId() != 0){
+							aves_nativas[ave_nativa_retorno.getId()] = ave_nativa_retorno;
+							Animal & animalBasico = static_cast<Animal&>(ave_nativa_retorno);
+							mapeamento_busca[ave_nativa_retorno.getId()] = animalBasico;
+						}
+
+					}else if(it->second.getClasse() == "Aves" && it->second.getNatureza() == "Exotico"){
+						map<int, AveExotica>::iterator aex = aves_exoticas.find(id);
+						AnimalService<AveExotica> animal;
+						AveExotica ave_exotica_retorno = animal.editar(aex->second, this);
+
+						if(ave_exotica_retorno.getId() != 0){
+							aves_exoticas[ave_exotica_retorno.getId()] = ave_exotica_retorno;
+							Animal & animalBasico = static_cast<Animal&>(ave_exotica_retorno);
+							mapeamento_busca[ave_exotica_retorno.getId()] = animalBasico;
+						}
 					}	
 
-					if(detalhes_alterados)
-						cout << "DADOS ALTERADOS COM SUCESSO!" << endl;
-					else
-						cout << "ERRO NA ALTERAÇÃO DOS DADOS. ALGUM CAMPO COM ERRO DE PREENCHIMENTO." << endl;
+					mapeamento_busca.erase(it);
+					
+					system("clear");
+					cout << "______________________________________________________________" << endl;
+					cout << "ANIMAL EDITADO COM SUCESSO!" << endl;			
+				}else{
+					system("clear");
+					cout << "______________________________________________________________" << endl;
+					throw invalid_argument("ANIMAL NÃO ENCONTRADO."); 
 				}
+				
 			}else{
 				system("clear");
 				cout << "______________________________________________________________" << endl;
-				cout << "NÃO HÁ ANIMAIS COM ID INFORMADO" << endl;	
-			}	
-
+				cout << "NÃO HÁ ANIMAIS CADASTRADOS" << endl;
+			}		
 		}else{
 			system("clear");
 			cout << "______________________________________________________________" << endl;
@@ -1004,12 +1090,12 @@ void PetFera::editar_animal(){
 	cerr<<"Erro: "<<ex.what()<<endl;
 	}
 }
-*/
+
 /**
 * @brief método de consulta com filtragem por animal ou por classe
 * @return 
 */
-/*
+
 void PetFera::consultar_filtro_animal_classe(){
 	system("clear");
 	cout << "______________________________________________________________" << endl;
@@ -1018,7 +1104,7 @@ void PetFera::consultar_filtro_animal_classe(){
 	cout << endl;
 
 	cout << " -- SELECIONE UM FILTRO PARA CONSULTA -- " << endl;
-	cout << "	(1) +  ANIMAL" << endl;
+	cout << "	(1) +  NOME" << endl;
 	cout << "	(2) +  CLASSE" << endl;
 	cout << endl;
 
@@ -1057,12 +1143,12 @@ void PetFera::consultar_filtro_animal_classe(){
     	cerr<<"Erro: "<<err.what()<<endl;
     }
 }
-*/
+
 /**
 * @brief método de consulta com filtragem por animal 
 * @return 
 */
-/*
+
 void PetFera::consultar_filtro_nome_animal(){
 	system("clear");
 	string nome = "";
@@ -1070,29 +1156,38 @@ void PetFera::consultar_filtro_nome_animal(){
 	cin >> nome;
 	map<int, Animal>::iterator it;
 	int quantidade_achados = 0;
-	if(!animais.empty()){
-		for (it = animais.begin(); it != animais.end(); ++it){
+	cout << endl;
+	cout << "DADOS RETORNADOS:" << endl;
+	if(!mapeamento_busca.empty()){
+		for (it = mapeamento_busca.begin(); it != mapeamento_busca.end(); ++it){
 			if(it->second.getNome() == nome){
-				if(it->second.getClasse() == "Amphibia"){
-					map<int, Anfibio>::iterator busca_anfibio = anfibios.find(it->second.getId());
-					cout << busca_anfibio->second << endl;
-				}
-				else if(it->second.getClasse() == "Reptilia"){
-					map<int, Reptil>::iterator busca_reptil = repteis.find(it->second.getId());
-					cout << busca_reptil->second << endl;
-				}
-				else if(it->second.getClasse() == "Aves"){
-					map<int, Ave>::iterator busca_ave = aves.find(it->second.getId());
-					cout << busca_ave->second << endl;
-				}
-				else if(it->second.getClasse() == "Mammalia"){
-					map<int, Mamifero>::iterator busca_mamifero = mamiferos.find(it->second.getId());
-					cout << busca_mamifero->second << endl;
+				if(it->second.getClasse() == "Amphibia" && it->second.getNatureza() == "Nativo"){
+					map<int, AnfibioNativo>::iterator an = anfibios_nativos.find(it->first);
+					cout << an->second << endl;
+    			}else if(it->second.getClasse() == "Amphibia" && it->second.getNatureza() == "Exotico"){
+					map<int, AnfibioExotico>::iterator ae = anfibios_exoticos.find(it->first);
+					cout << ae->second << endl;
+				}else if(it->second.getClasse() == "Mammalia" && it->second.getNatureza() == "Nativo"){
+					map<int, MamiferoNativo>::iterator mn = mamiferos_nativos.find(it->first);
+					cout << mn->second << endl;
+				}else if(it->second.getClasse() == "Mammalia" && it->second.getNatureza() == "Exotico"){
+					map<int, MamiferoExotico>::iterator me = mamiferos_exoticos.find(it->first);
+					cout << me->second << endl;
+				}else if(it->second.getClasse() == "Reptilia" && it->second.getNatureza() == "Nativo"){
+					map<int, ReptilNativo>::iterator rn = repteis_nativos.find(it->first);
+					cout << rn->second << endl;
+				}else if(it->second.getClasse() == "Reptilia" && it->second.getNatureza() == "Exotico"){
+					map<int, ReptilExotico>::iterator re = repteis_exoticos.find(it->first);
+					cout << re->second << endl;
+				}else if(it->second.getClasse() == "Aves" && it->second.getNatureza() == "Nativo"){
+					map<int, AveNativa>::iterator an = aves_nativas.find(it->first);
+					cout << an->second << endl;
+				}else if(it->second.getClasse() == "Aves" && it->second.getNatureza() == "Exotico"){
+					map<int, AveExotica>::iterator aex = aves_exoticas.find(it->first);
+					cout << aex->second << endl;
 				}	
-				
-				quantidade_achados++;
 			}
-				
+			quantidade_achados++;				
 		}
 		if(quantidade_achados == 0){
 			system("clear");
@@ -1105,12 +1200,11 @@ void PetFera::consultar_filtro_nome_animal(){
 		cout << "NÃO HÁ ANIMAIS CADASTRADOS" << endl;
 	}
 }
-*/
 /**
 * @brief método de consulta com filtragem por classe 
 * @return 
 */
-/*
+
 void PetFera::consultar_filtro_classe(){
 	system("clear");
 	cout << "______________________________________________________________" << endl;
@@ -1134,7 +1228,6 @@ void PetFera::consultar_filtro_classe(){
 		if(cin.fail())
 			throw invalid_argument("ARGUMENTO INVALIDO. SELECIONE UM DOS INTEIROS LISTADOS.");
 		try{
-			int quantidade_achados = 0;
 			system("clear");
 			cout << "______________________________________________________________" << endl;
 
@@ -1142,37 +1235,52 @@ void PetFera::consultar_filtro_classe(){
 					return;
 				}
 				else if(escolha_tipo_classe == 1){
-					map<int, Anfibio>::iterator it;
-					for (it = anfibios.begin(); it != anfibios.end(); ++it){
-						cout << it->second << " ";	
-						quantidade_achados++;
-					}
+					cout << "______________________________________________________________" << endl;
+					cout << "---ANFIBIOS---" << endl;
+						map<int,AnfibioExotico>::iterator ae;
+							for (ae = anfibios_exoticos.begin(); ae != anfibios_exoticos.end(); ++ae)
+								cout << ae->second << endl;
+						map<int,AnfibioNativo>::iterator an;
+							for (an = anfibios_nativos.begin(); an != anfibios_nativos.end(); ++an)
+								cout << an->second << endl;	
+					cout << "______________________________________________________________" << endl;
 				}
 				else if(escolha_tipo_classe == 2){
-					map<int,Reptil>::iterator it;
-					for (it = repteis.begin(); it != repteis.end(); ++it){
-						cout << it->second << " ";	
-						quantidade_achados++;
-					}
+					cout << "______________________________________________________________" << endl;
+					cout << "---RÉPTEIS---" << endl;
+						map<int, ReptilExotico>::iterator re;
+							for (re = repteis_exoticos.begin(); re != repteis_exoticos.end(); ++re)
+								cout << re->second << endl;
+						map<int,ReptilNativo>::iterator rn;
+							for (rn = repteis_nativos.begin(); rn != repteis_nativos.end(); ++rn)
+								cout << rn->second << endl;	
+					cout << "______________________________________________________________" << endl;
 				}
 				else if(escolha_tipo_classe == 3){
-					map<int,Ave>::iterator it;
-					for (it = aves.begin(); it != aves.end(); ++it){
-						cout << it->second << " ";	
-						quantidade_achados++;
-					}
+					cout << "______________________________________________________________" << endl;
+					cout << "---AVES---" << endl;
+						map<int,AveExotica>::iterator ae1;
+							for (ae1 = aves_exoticas.begin(); ae1 != aves_exoticas.end(); ++ae1)
+								cout << ae1->second << endl;
+						map<int,AveNativa>::iterator an1;
+							for (an1 = aves_nativas.begin(); an1 != aves_nativas.end(); ++an1)
+								cout << an1->second << endl;	
+					cout << "______________________________________________________________" << endl;
 				}
 				else if(escolha_tipo_classe == 4){
-					map<int,Mamifero>::iterator it;
-					for (it = mamiferos.begin(); it != mamiferos.end(); ++it){
-						cout << it->second << " ";	
-						quantidade_achados++;
-					}	
+					cout << "______________________________________________________________" << endl;
+					cout << "---MAMÍFEROS---" << endl;
+						map<int,MamiferoExotico>::iterator me;
+							for (me = mamiferos_exoticos.begin(); me != mamiferos_exoticos.end(); ++me)
+								cout << me->second << endl;
+						map<int,MamiferoNativo>::iterator mn;
+							for (mn = mamiferos_nativos.begin(); mn != mamiferos_nativos.end(); ++mn)
+								cout << mn->second << endl;	
+					cout << "______________________________________________________________" << endl;
 				}else{
 					throw invalid_argument("ARGUMENTO INVALIDO. PARÂMETRO FORA DO ESCOPO DA LISTAGEM.");
 				}	
 
-			 quantidade_achados > 0 ? cout << "" << endl : cout << "NÃO HÁ ANIMAIS CADASTRADOS PARA ESSA CLASSE" << endl;
 		}catch(invalid_argument &ex){
 			system("clear");
 			cout << "______________________________________________________________" << endl;
@@ -1186,7 +1294,71 @@ void PetFera::consultar_filtro_classe(){
     	cerr<<"Erro: "<<err.what()<<endl;
     }
 }
+
+/**
+* @brief método de consulta com filtragem por veterinário ou tratador
+* @return 
 */
+void PetFera::consultar_filtro_veterinario_tratador(){
+	system("clear");
+	int id = 0;
+	cout << "---ANIMAL FILTRAGEM POR FUNCIONÁRIO---" << endl;
+	cout << endl;
+	cout << "INFORME O ID DO VETERINÁRIO OU TRATADOR:" << endl;
+	cin >> id;
+	map<int, Funcionario>::iterator an = funcionarios.find(id);
+	if (an == funcionarios.end()){
+		system("clear");
+		cout << "______________________________________________________________" << endl;
+		cout << "NÃO HÁ FUNCIONÁRIO CADASTRADO COM O ID INFORMADO" << endl;
+	}else{
+		map<int, Animal>::iterator it;
+		int quantidade_achados = 0;
+		cout << endl;
+		cout << "DADOS RETORNADOS:" << endl;
+		if(!mapeamento_busca.empty()){
+			for (it = mapeamento_busca.begin(); it != mapeamento_busca.end(); ++it){
+				if(it->second.getVeterinario().getId() == id || it->second.getTratador().getId() == id){
+					if(it->second.getClasse() == "Amphibia" && it->second.getNatureza() == "Nativo"){
+						map<int, AnfibioNativo>::iterator an = anfibios_nativos.find(it->first);
+						cout << an->second << endl;
+	    			}else if(it->second.getClasse() == "Amphibia" && it->second.getNatureza() == "Exotico"){
+						map<int, AnfibioExotico>::iterator ae = anfibios_exoticos.find(it->first);
+						cout << ae->second << endl;
+					}else if(it->second.getClasse() == "Mammalia" && it->second.getNatureza() == "Nativo"){
+						map<int, MamiferoNativo>::iterator mn = mamiferos_nativos.find(it->first);
+						cout << mn->second << endl;
+					}else if(it->second.getClasse() == "Mammalia" && it->second.getNatureza() == "Exotico"){
+						map<int, MamiferoExotico>::iterator me = mamiferos_exoticos.find(it->first);
+						cout << me->second << endl;
+					}else if(it->second.getClasse() == "Reptilia" && it->second.getNatureza() == "Nativo"){
+						map<int, ReptilNativo>::iterator rn = repteis_nativos.find(it->first);
+						cout << rn->second << endl;
+					}else if(it->second.getClasse() == "Reptilia" && it->second.getNatureza() == "Exotico"){
+						map<int, ReptilExotico>::iterator re = repteis_exoticos.find(it->first);
+						cout << re->second << endl;
+					}else if(it->second.getClasse() == "Aves" && it->second.getNatureza() == "Nativo"){
+						map<int, AveNativa>::iterator an = aves_nativas.find(it->first);
+						cout << an->second << endl;
+					}else if(it->second.getClasse() == "Aves" && it->second.getNatureza() == "Exotico"){
+						map<int, AveExotica>::iterator aex = aves_exoticas.find(it->first);
+						cout << aex->second << endl;
+					}	
+				}
+				quantidade_achados++;				
+			}
+			if(quantidade_achados == 0){
+				system("clear");
+				cout << "______________________________________________________________" << endl;
+				cout << "NÃO HÁ ANIMAIS PARA O FUNCIONÁRIO INFORMADO" << endl;
+			}	
+		}else{
+			system("clear");
+			cout << "______________________________________________________________" << endl;
+			cout << "NÃO HÁ ANIMAIS CADASTRADOS" << endl;
+		}
+	}
+}
 /**
 * @brief método de recuperação das informações dos arquivos
 * @return 

@@ -76,6 +76,11 @@ public:
 	* @return atributo batismo
 	*/
 	string getBatismo();
+	/**
+	* @brief Método de acesso para o atributo natureza
+	* @return atributo natureza
+	*/
+	string getNatureza();
 	
 	/**
 	* @brief Método de acesso para o atributo veterinário
