@@ -27,12 +27,13 @@ Animal::Animal() {
 	this->tamanho = 0;
 	this->dieta = "";
 	this->batismo = "";
+	this->natureza = "";
 }
 
 /**
 * @brief Construtor paramatrizado da Classe
 */
-Animal::Animal(std::string classe){
+Animal::Animal(std::string classe, string natureza){
 	this->id = contador_animal_id;
 	this->classe = classe;
 	this->nome = "";
@@ -41,6 +42,7 @@ Animal::Animal(std::string classe){
 	this->tamanho = 0;
 	this->dieta = "";
 	this->batismo = "";
+	this->natureza = natureza;
 }
 
 
@@ -170,6 +172,21 @@ void Animal::setDieta(string dieta){
 */
 void Animal::setBatismo(string batismo){
 	this->batismo = batismo;
+}
+
+/**
+* @brief Método de acesso para o atributo veterinário
+* @return atributo dieta
+*/
+Veterinario Animal::getVeterinario(){
+	return this->veterinario;
+}
+/**
+* @brief Método de acesso para o atributo tratador
+* @return atributo batismo
+*/
+Tratador Animal::getTratador(){
+	return this->tratador;	
 }
 
 /**

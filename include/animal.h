@@ -29,11 +29,12 @@ protected:
 	Veterinario veterinario;
 	Tratador tratador;
 	string batismo;
+	string natureza;
 	
 public:
 	static int contador_animal_id;	
 	Animal(); /**< Construtor padrão da Classe*/
-	Animal(std::string classe); /**< Construtor paramatrizado da Classe*/
+	Animal(std::string classe, std::string natureza); /**< Construtor paramatrizado da Classe*/
 	virtual ~Animal(); /**< Destrutor da Classe*/
 	/**
 	* @brief Método de acesso para o atributo id
@@ -75,6 +76,19 @@ public:
 	* @return atributo batismo
 	*/
 	string getBatismo();
+	
+	/**
+	* @brief Método de acesso para o atributo veterinário
+	* @return atributo dieta
+	*/
+	Veterinario getVeterinario();
+	/**
+	* @brief Método de acesso para o atributo tratador
+	* @return atributo batismo
+	*/
+	Tratador getTratador();
+
+
 	/**
 	* @brief Método de alteração do veterinario
 	* @return 

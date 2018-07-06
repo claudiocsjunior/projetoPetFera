@@ -11,7 +11,8 @@
 #include <iostream>
 
 using namespace std;
-Anfibio::Anfibio():Animal("Amphibia"){} /**< Construtor padrão da Classe*/
+Anfibio::Anfibio(){} /**< Construtor padrão da Classe*/
+Anfibio::Anfibio(string natureza):Animal("Amphibia", natureza){} /**< Construtor padrão da Classe*/
 Anfibio::~Anfibio(){} /**< Destrutor da Classe*/
 /**
 * @brief Método de preenchimento dos atributos pertencente a classe anfibio

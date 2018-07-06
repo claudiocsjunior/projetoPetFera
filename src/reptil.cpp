@@ -11,7 +11,8 @@
 #include <iostream>
 
 using namespace std;
-Reptil::Reptil():Animal("Reptilia"){} /**< Construtor padrão da Classe*/
+Reptil::Reptil(){} /**< Construtor padrão da Classe*/
+Reptil::Reptil(string natureza):Animal("Reptilia", natureza){} /**< Construtor padrão da Classe*/
 Reptil::~Reptil(){} /**< Destrutor da Classe*/
 /**
 * @brief Método de preenchimento dos atributos pertencente a classe anfibio

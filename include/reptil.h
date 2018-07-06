@@ -18,6 +18,7 @@ protected:
 	std::string tipo_veneno;
 public:
 	Reptil(); /**< Construtor padrão da Classe*/
+	Reptil(std::string natureza); /**< Construtor padrão da Classe*/
 	~Reptil(); /**< Destrutor da Classe*/
 	/**
 	* @brief Método de preenchimento dos atributos pertencente a classe anfibio

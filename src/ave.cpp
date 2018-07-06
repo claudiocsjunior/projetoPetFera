@@ -11,7 +11,8 @@
 #include <iostream>
 
 using namespace std;
-Ave::Ave():Animal("Aves"){} /**< Construtor padrão da Classe*/
+Ave::Ave(){} /**< Construtor padrão da Classe*/
+Ave::Ave(string natureza):Animal("Aves", natureza){} /**< Construtor padrão da Classe*/
 Ave::~Ave(){} /**< Destrutor da Classe*/
 /**
 * @brief Método de preenchimento dos atributos pertencente a classe anfibio

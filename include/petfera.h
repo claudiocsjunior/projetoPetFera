@@ -9,29 +9,45 @@
 #ifndef _PETFERA_H_  /**< Verifica se a variável _PETFERA_H_ foi definida*/
 #define _PETFERA_H_	 /**< Define a variável _PETFERA_H_*/
 
-#include "../include/funcionario.h"
-#include "../include/veterinario.h"
-#include "../include/tratador.h"
-#include "../include/animal.h"
-#include "../include/anfibio.h"
-#include "../include/mamifero.h"
-#include "../include/reptil.h"
-#include "../include/ave.h"
+#include "funcionario.h"
+#include "veterinario.h"
+#include "tratador.h"
+#include "animal.h"
+#include "anfibio.h"
+#include "mamifero.h"
+#include "reptil.h"
+#include "ave.h"
+#include "anfibio_exotico.h"
+#include "anfibio.h"
+#include "exotico.h"
+#include "anfibio_nativo.h"
+#include "animal_silvestre.h"
+#include "mamifero_exotico.h"
+#include "mamifero_nativo.h"
+#include "reptil_exotico.h"
+#include "reptil_nativo.h"
+#include "ave_exotica.h"
+#include "ave_nativa.h"
 #include <string>
 #include <map>
 #include <fstream> /**< Inclusão da lib fstream*/
+#include <vector> /**< Inclusão da lib vector*/
+#include <memory> /**< Inclusão da lib memory*/
 
 class PetFera
 {
 
 public:
 	map<int, Funcionario> funcionarios;	
-	map<int, Animal> animais;
-	map<int, Anfibio> anfibios;
-	map<int, Mamifero> mamiferos;
-	map<int, Reptil> repteis;
-	map<int, Ave> aves;
-
+	map<int, AnfibioNativo> anfibios_nativos;
+	map<int, AnfibioExotico> anfibios_exoticos;
+	map<int, MamiferoNativo> mamiferos_nativos;
+	map<int, MamiferoExotico> mamiferos_exoticos;
+	map<int, ReptilNativo> repteis_nativos;
+	map<int, ReptilExotico> repteis_exoticos;
+	map<int, AveNativa> aves_nativas;
+	map<int, AveExotica> aves_exoticas;
+	
 	PetFera(); /**< Construtor padrão da Classe*/
 	~PetFera(); /**< Destrutor da Classe*/
 	/**
@@ -108,7 +124,7 @@ public:
 	* @brief método de remoção de um animal
 	* @return 
 	*/
-	void remover_comercializar_animal();
+	//void remover_comercializar_animal();
 	/**
 	* @brief método de consulta de um animal sem filtros
 	* @return 
@@ -118,33 +134,41 @@ public:
 	* @brief método de alteração dos dados do animal
 	* @return 
 	*/
-	void editar_animal();
+	//void editar_animal();
 	/**
 	* @brief método de consulta com filtragem por animal ou por classe
 	* @return 
 	*/
-	void consultar_filtro_animal_classe();
+	//void consultar_filtro_animal_classe();
 	/**
 	* @brief método de consulta com filtragem por animal 
 	* @return 
 	*/
-	void consultar_filtro_nome_animal();
+	//void consultar_filtro_nome_animal();
 	/**
 	* @brief método de consulta com filtragem por classe 
 	* @return 
 	*/
-	void consultar_filtro_classe();
+	//void consultar_filtro_classe();
 
 	/**
 	* @brief método de recuperação das informações dos arquivos
 	* @return 
 	*/
-	void recuperar_informacoes_arquivo();
+	//void recuperar_informacoes_arquivo();
 	/**
 	* @brief método para salvar informações em arquivos
 	* @return 
 	*/
-	void salvar_informacoes_arquivo();
+	//void salvar_informacoes_arquivo();
+
+	/**
+	* @brief Função que quebra a linha lida do arquivo
+	* @param[in] Recebe linha(str) do tipo string
+	* @param[in] Recebe valor que será procurado para quebra do tipo char
+	* @return result do tipo vetor
+	*/
+	std::vector<std::string> split_string(std::string str, const char* op); 
 		
 
 };

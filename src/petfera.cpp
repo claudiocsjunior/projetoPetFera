@@ -21,7 +21,9 @@
 #include <limits>
 #include <cstdlib>
 #include <exception>	
-#include "../include/adicionar_animal.h"
+#include "../include/animal_service.h"
+#include <vector> /**< Inclusão da lib vector*/
+#include <memory> /**< Inclusão da lib memory*/
 
 using namespace std;
 
@@ -93,13 +95,13 @@ void PetFera::funcionalidades(){
 						adicionar_animal();
 						break;
 					case 6:
-						remover_comercializar_animal();
+						//remover_comercializar_animal();
 						break;
 					case 7:
-						editar_animal();
+						//editar_animal();
 						break;
 					case 8:
-						consultar_filtro_animal_classe();
+						//consultar_filtro_animal_classe();
 						break;
 					case 9:
 						break;
@@ -487,11 +489,59 @@ void PetFera::adicionar_animal(){
 */
 void PetFera::adicionar_anfibio(){
 	system("clear");
-	Adicionar_animal<Anfibio> animal;
-	Anfibio anfibio;
-	Anfibio anfibio_retorno = animal.adicionar(anfibio, this);
-	if(anfibio_retorno.getId() != -1)
-		anfibios[anfibio_retorno.getId()] = anfibio_retorno;
+	cout << "______________________________________________________________" << endl;
+	int escolha_natureza;
+	cout << "---ADICIONAR ANFIBIO---" << endl;
+	cout << endl;
+
+	cout << " -- SELECIONE A NATUREZA DO ANIMAL: -- " << endl;
+	cout << "	(1) +  NATIVO" << endl;
+	cout << "	(2) +  EXOTICO" << endl;
+	cout << endl;
+
+	cout << "	(0) VOLTAR" <<endl;
+	cout << endl;
+
+	cout << "opção escolhida: " ;
+	try{
+		cin >> escolha_natureza;
+		if(cin.fail())
+			throw invalid_argument("ARGUMENTO INVALIDO. SELECIONE UM DOS INTEIROS LISTADOS.");
+		try{
+			system("clear");
+			if(escolha_natureza == 0)
+				return;
+			else if(escolha_natureza == 1){
+				AnimalService<AnfibioNativo> animal;
+				AnfibioNativo anfibio_nativo;
+				AnfibioNativo anfibio_nativo_retorno = animal.adicionar(anfibio_nativo, this);
+				if(anfibio_nativo_retorno.getId() != 0)
+					anfibios_nativos[anfibio_nativo_retorno.getId()] = anfibio_nativo_retorno;
+
+			}
+			else if(escolha_natureza == 2){
+				AnimalService<AnfibioExotico> animal;
+				AnfibioExotico anfibio_exotico;
+				AnfibioExotico anfibio_exotico_retorno = animal.adicionar(anfibio_exotico, this);
+				if(anfibio_exotico_retorno.getId() != 0)
+					anfibios_exoticos[anfibio_exotico_retorno.getId()] = anfibio_exotico_retorno;
+
+			}	
+			else{
+				throw invalid_argument("ARGUMENTO INVALIDO. PARÂMETRO FORA DO ESCOPO DA LISTAGEM.");
+			}
+		}catch(invalid_argument &ex){
+			system("clear");
+			cout << "______________________________________________________________" << endl;
+			cerr<<"Erro: "<<ex.what()<<endl;
+		}
+	}catch(invalid_argument &err){
+		system("clear");
+		cin.clear();
+    	cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    	cout << "______________________________________________________________" << endl;
+    	cerr<<"Erro: "<<err.what()<<endl;
+    }
 }
 
 /**
@@ -500,11 +550,59 @@ void PetFera::adicionar_anfibio(){
 */
 void PetFera::adicionar_mamifero(){
 	system("clear");
-	Adicionar_animal<Mamifero> animal;
-	Mamifero mamifero;
-	Mamifero mamifero_retorno = animal.adicionar(mamifero, this);
-	if(mamifero_retorno.getId() != -1)
-		mamiferos[mamifero_retorno.getId()] = mamifero_retorno;
+	cout << "______________________________________________________________" << endl;
+	int escolha_natureza;
+	cout << "---ADICIONAR MAMIFERO---" << endl;
+	cout << endl;
+
+	cout << " -- SELECIONE A NATUREZA DO ANIMAL: -- " << endl;
+	cout << "	(1) +  NATIVO" << endl;
+	cout << "	(2) +  EXOTICO" << endl;
+	cout << endl;
+
+	cout << "	(0) VOLTAR" <<endl;
+	cout << endl;
+
+	cout << "opção escolhida: " ;
+	try{
+		cin >> escolha_natureza;
+		if(cin.fail())
+			throw invalid_argument("ARGUMENTO INVALIDO. SELECIONE UM DOS INTEIROS LISTADOS.");
+		try{
+			system("clear");
+			if(escolha_natureza == 0)
+				return;
+			else if(escolha_natureza == 1){
+				AnimalService<MamiferoNativo> animal;
+				MamiferoNativo mamifero_nativo;
+				MamiferoNativo mamifero_nativo_retorno = animal.adicionar(mamifero_nativo, this);
+				if(mamifero_nativo_retorno.getId() != 0)
+					mamiferos_nativos[mamifero_nativo_retorno.getId()] = mamifero_nativo_retorno;
+
+			}
+			else if(escolha_natureza == 2){
+				AnimalService<MamiferoExotico> animal;
+				MamiferoExotico mamifero_exotico;
+				MamiferoExotico mamifero_exotico_retorno = animal.adicionar(mamifero_exotico, this);
+				if(mamifero_exotico_retorno.getId() != 0)
+					mamiferos_exoticos[mamifero_exotico_retorno.getId()] = mamifero_exotico_retorno;
+
+			}	
+			else{
+				throw invalid_argument("ARGUMENTO INVALIDO. PARÂMETRO FORA DO ESCOPO DA LISTAGEM.");
+			}
+		}catch(invalid_argument &ex){
+			system("clear");
+			cout << "______________________________________________________________" << endl;
+			cerr<<"Erro: "<<ex.what()<<endl;
+		}
+	}catch(invalid_argument &err){
+		system("clear");
+		cin.clear();
+    	cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    	cout << "______________________________________________________________" << endl;
+    	cerr<<"Erro: "<<err.what()<<endl;
+    }
 }
 /**
 * @brief método de adição de um réptil
@@ -512,30 +610,128 @@ void PetFera::adicionar_mamifero(){
 */
 void PetFera::adicionar_reptil(){
 	system("clear");
-	Adicionar_animal<Reptil> animal;
-	Reptil reptil;
-	Reptil reptil_retorno = animal.adicionar(reptil, this);
-	if(reptil_retorno.getId() != -1)
-		repteis[reptil_retorno.getId()] = reptil_retorno;
+	cout << "______________________________________________________________" << endl;
+	int escolha_natureza;
+	cout << "---ADICIONAR RÉPTIL---" << endl;
+	cout << endl;
+
+	cout << " -- SELECIONE A NATUREZA DO ANIMAL: -- " << endl;
+	cout << "	(1) +  NATIVO" << endl;
+	cout << "	(2) +  EXOTICO" << endl;
+	cout << endl;
+
+	cout << "	(0) VOLTAR" <<endl;
+	cout << endl;
+
+	cout << "opção escolhida: " ;
+	try{
+		cin >> escolha_natureza;
+		if(cin.fail())
+			throw invalid_argument("ARGUMENTO INVALIDO. SELECIONE UM DOS INTEIROS LISTADOS.");
+		try{
+			system("clear");
+			if(escolha_natureza == 0)
+				return;
+			else if(escolha_natureza == 1){
+				AnimalService<ReptilNativo> animal;
+				ReptilNativo reptil_nativo;
+				ReptilNativo reptil_nativo_retorno = animal.adicionar(reptil_nativo, this);
+				if(reptil_nativo_retorno.getId() != 0)
+					repteis_nativos[reptil_nativo_retorno.getId()] = reptil_nativo_retorno;
+
+			}
+			else if(escolha_natureza == 2){
+				AnimalService<ReptilExotico> animal;
+				ReptilExotico reptil_exotico;
+				ReptilExotico reptil_exotico_retorno = animal.adicionar(reptil_exotico, this);
+				if(reptil_exotico_retorno.getId() != 0)
+					repteis_exoticos[reptil_exotico_retorno.getId()] = reptil_exotico_retorno;
+
+			}	
+			else{
+				throw invalid_argument("ARGUMENTO INVALIDO. PARÂMETRO FORA DO ESCOPO DA LISTAGEM.");
+			}
+		}catch(invalid_argument &ex){
+			system("clear");
+			cout << "______________________________________________________________" << endl;
+			cerr<<"Erro: "<<ex.what()<<endl;
+		}
+	}catch(invalid_argument &err){
+		system("clear");
+		cin.clear();
+    	cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    	cout << "______________________________________________________________" << endl;
+    	cerr<<"Erro: "<<err.what()<<endl;
+    }
 }
 
 /**
 * @brief método de adição de uma ave
 * @return 
 */
+
 void PetFera::adicionar_ave(){
 	system("clear");
-	Adicionar_animal<Ave> animal;
-	Ave ave;
-	Ave ave_retorno = animal.adicionar(ave, this);
-	if(ave_retorno.getId() != -1)
-		aves[ave_retorno.getId()] = ave_retorno;
+	cout << "______________________________________________________________" << endl;
+	int escolha_natureza;
+	cout << "---ADICIONAR AVE---" << endl;
+	cout << endl;
+
+	cout << " -- SELECIONE A NATUREZA DO ANIMAL: -- " << endl;
+	cout << "	(1) +  NATIVO" << endl;
+	cout << "	(2) +  EXOTICO" << endl;
+	cout << endl;
+
+	cout << "	(0) VOLTAR" <<endl;
+	cout << endl;
+
+	cout << "opção escolhida: " ;
+	try{
+		cin >> escolha_natureza;
+		if(cin.fail())
+			throw invalid_argument("ARGUMENTO INVALIDO. SELECIONE UM DOS INTEIROS LISTADOS.");
+		try{
+			system("clear");
+			if(escolha_natureza == 0)
+				return;
+			else if(escolha_natureza == 1){
+				AnimalService<AveNativa> animal;
+				AveNativa ave_nativo;
+				AveNativa ave_nativo_retorno = animal.adicionar(ave_nativo, this);
+				if(ave_nativo_retorno.getId() != 0)
+					aves_nativas[ave_nativo_retorno.getId()] = ave_nativo_retorno;
+
+			}
+
+			else if(escolha_natureza == 2){
+				AnimalService<AveExotica> animal;
+				AveExotica ave_exotica;
+				AveExotica ave_exotica_retorno = animal.adicionar(ave_exotica, this);
+				if(ave_exotica_retorno.getId() != 0)
+					aves_exoticas[ave_exotica_retorno.getId()] = ave_exotica_retorno;
+			}	
+			else{
+				throw invalid_argument("ARGUMENTO INVALIDO. PARÂMETRO FORA DO ESCOPO DA LISTAGEM.");
+			}
+		}catch(invalid_argument &ex){
+			system("clear");
+			cout << "______________________________________________________________" << endl;
+			cerr<<"Erro: "<<ex.what()<<endl;
+		}
+	}catch(invalid_argument &err){
+		system("clear");
+		cin.clear();
+    	cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    	cout << "______________________________________________________________" << endl;
+    	cerr<<"Erro: "<<err.what()<<endl;
+    }
 }
 
 /**
 * @brief método que busca os responsaveis do animal
 * @return booleano
 */
+
 bool PetFera::buscar_responsaveis(Animal &animal){
 	int adicionados = 0;
 	cout << "______________________________________________________________" << endl;
@@ -605,26 +801,57 @@ bool PetFera::buscar_responsaveis(Animal &animal){
 * @brief método de consulta de um animal sem filtros
 * @return 
 */
+
 void PetFera::consultar_animais(){
 	system("clear");
 	cout << "______________________________________________________________" << endl;
 	cout << "---ANIMAIS DA PETFERA---" << endl;
 	cout << endl;
-	if(animais.empty()){
-		system("clear");
-		cout << "______________________________________________________________" << endl;
-		cout << "NÃO HÁ ANIMAIS CADASTRADOS" << endl;
-	}else{
-		map<int,Animal>::iterator it;
-			for (it = animais.begin(); it != animais.end(); ++it)
-				cout << it->second << endl;
-	}
+	system("clear");
+	cout << "______________________________________________________________" << endl;
+	cout << "---ANFIBIOS---" << endl;
+		map<int,AnfibioExotico>::iterator ae;
+			for (ae = anfibios_exoticos.begin(); ae != anfibios_exoticos.end(); ++ae)
+				cout << ae->second << endl;
+		map<int,AnfibioNativo>::iterator an;
+			for (an = anfibios_nativos.begin(); an != anfibios_nativos.end(); ++an)
+				cout << an->second << endl;	
+	cout << "______________________________________________________________" << endl;
+	cout << "______________________________________________________________" << endl;
+	cout << "---MAMÍFEROS---" << endl;
+		map<int,MamiferoExotico>::iterator me;
+			for (me = mamiferos_exoticos.begin(); me != mamiferos_exoticos.end(); ++me)
+				cout << me->second << endl;
+		map<int,MamiferoNativo>::iterator mn;
+			for (mn = mamiferos_nativos.begin(); mn != mamiferos_nativos.end(); ++mn)
+				cout << mn->second << endl;	
+	cout << "______________________________________________________________" << endl;
+	cout << "______________________________________________________________" << endl;
+	cout << "---RÉPTEIS---" << endl;
+		map<int, ReptilExotico>::iterator re;
+			for (re = repteis_exoticos.begin(); re != repteis_exoticos.end(); ++re)
+				cout << re->second << endl;
+		map<int,ReptilNativo>::iterator rn;
+			for (rn = repteis_nativos.begin(); rn != repteis_nativos.end(); ++rn)
+				cout << rn->second << endl;	
+	cout << "______________________________________________________________" << endl;
+	cout << "______________________________________________________________" << endl;
+	cout << "---AVES---" << endl;
+		map<int,AveExotica>::iterator ae1;
+			for (ae1 = aves_exoticas.begin(); ae1 != aves_exoticas.end(); ++ae1)
+				cout << ae1->second << endl;
+		map<int,AveNativa>::iterator an1;
+			for (an1 = aves_nativas.begin(); an1 != aves_nativas.end(); ++an1)
+				cout << an1->second << endl;	
+	cout << "______________________________________________________________" << endl;		
 }
+
 
 /**
 * @brief método de remoção de um animal
 * @return 
 */
+/*
 void PetFera::remover_comercializar_animal(){
 	try{
 		system("clear");
@@ -660,11 +887,13 @@ void PetFera::remover_comercializar_animal(){
 		cerr<<"ERRO: "<<ex.what()<<endl;
 	}
 }	
+*/
 
 /**
 * @brief método de alteração dos dados do animal
 * @return 
 */
+/*
 void PetFera::editar_animal(){
 	try{
 		system("clear");
@@ -775,11 +1004,12 @@ void PetFera::editar_animal(){
 	cerr<<"Erro: "<<ex.what()<<endl;
 	}
 }
-
+*/
 /**
 * @brief método de consulta com filtragem por animal ou por classe
 * @return 
 */
+/*
 void PetFera::consultar_filtro_animal_classe(){
 	system("clear");
 	cout << "______________________________________________________________" << endl;
@@ -827,10 +1057,12 @@ void PetFera::consultar_filtro_animal_classe(){
     	cerr<<"Erro: "<<err.what()<<endl;
     }
 }
+*/
 /**
 * @brief método de consulta com filtragem por animal 
 * @return 
 */
+/*
 void PetFera::consultar_filtro_nome_animal(){
 	system("clear");
 	string nome = "";
@@ -873,11 +1105,12 @@ void PetFera::consultar_filtro_nome_animal(){
 		cout << "NÃO HÁ ANIMAIS CADASTRADOS" << endl;
 	}
 }
-
+*/
 /**
 * @brief método de consulta com filtragem por classe 
 * @return 
 */
+/*
 void PetFera::consultar_filtro_classe(){
 	system("clear");
 	cout << "______________________________________________________________" << endl;
@@ -953,20 +1186,52 @@ void PetFera::consultar_filtro_classe(){
     	cerr<<"Erro: "<<err.what()<<endl;
     }
 }
+*/
 /**
 * @brief método de recuperação das informações dos arquivos
 * @return 
 */
+/*
 void PetFera::recuperar_informacoes_arquivo(){
-	cout << "AINDA NÃO HÁ DADOS" << endl;
+	fstream arqFuncionarios;
+	arqFuncionarios.open("funcionarios.csv");
+	string line;
+
+	if (arqFuncionarios.is_open())
+	{
+		while (!arqFuncionarios.eof())
+		{
+			 cout << "entrei" << endl;
+			getline(arqFuncionarios, line);
+
+		  	std::vector<std::string> result = split_string(line, ";");
+		  	//string id = result[0];
+		  	string funcao = result[1];
+		  	string cpf = result[2];
+		  	//int idade = result[3];
+		  	string tipo_sanguineo = result[4];
+		 	//char fatorRH = result[5];
+			string especialidade = result[6];
+			 //cout << funcao << endl;
+		  //Fruta * fruta = new Fruta(_codigo, _descricao, _preco, _data, _validade);
+
+
+		}
+		arqFuncionarios.close();
+	}else{
+		cout << "Arquivo de funcionarios não foi encontrado. Verificar o caminho do arquivo." << endl;
+	}
+	
 }
+*/
 /**
 * @brief método para salvar informações em arquivos
 * @return 
 */
+/*
 void PetFera::salvar_informacoes_arquivo(){
 	fstream arqFuncionarios;
-	arqFuncionarios.open("funcionarios.csv");
+	arqFuncionarios.open("funcionarios.csv", ios::out);
 
 	if (arqFuncionarios.is_open())
 	{
@@ -986,7 +1251,51 @@ void PetFera::salvar_informacoes_arquivo(){
 	}
 	arqFuncionarios.close();
 
-	//criar a dos animais
+	fstream arqAnimais;
+	arqAnimais.open("animais.csv", ios::out);
+
+	if (arqAnimais.is_open())
+	{	
+		map<int,Animal>::iterator an;
+		for (an = animais.begin(); an != animais.end(); ++an){
+			arqAnimais <<  an->second.getId() << ";" << 
+					       an->second.getClasse() << ";" <<
+						   an->second.getNome() << ";" <<
+						   an->second.getCientifico() << ";" <<
+						   an->second.getSexo() << ";" <<
+						   an->second.getDieta() << ";" <<
+						   an->second.getVeterinario().getId() << ";" <<
+						   an->second.getTratador().getId() << ";" <<
+						   an->second.getBatismo() << endl;	   
+		}
+	}else{
+		cout << "Arquivo de funcionarios não foi encontrado. Verificar o caminho do arquivo." << endl;
+	}
+	arqAnimais.close();
+
 }
+*/
+/**
+* @brief Função que quebra a linha lida do arquivo
+* @param[in] Recebe linha(str) do tipo string
+* @param[in] Recebe valor que será procurado para quebra do tipo char
+* @return result do tipo vetor
+*/
+/*
+std::vector<std::string> PetFera::split_string(std::string str, const char* op) {
+	std::vector<std::string> result;
+	std::string rest = str, block;
+	size_t operator_position = rest.find_first_of(op);
+	while (operator_position != std::string::npos) {
+		block = rest.substr(0, operator_position);
+		rest = rest.substr(operator_position + 1);
+		operator_position = rest.find_first_of(op);
+		result.push_back(block);
+	}
 
+	if (rest.length() > 0)
+		result.push_back(rest);
 
+	return result;
+}
+*/

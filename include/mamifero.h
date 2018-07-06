@@ -17,6 +17,7 @@ protected:
 	std::string cor_pelo;
 public:
 	Mamifero(); /**< Construtor padrão da Classe*/
+	Mamifero(std::string natureza); /**< Construtor padrão da Classe*/
 	~Mamifero(); /**< Destrutor da Classe*/
 	/**
 	* @brief Método de preenchimento dos atributos pertencente a classe anfibio

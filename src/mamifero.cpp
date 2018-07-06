@@ -11,7 +11,8 @@
 #include <iostream>
 
 using namespace std;
-Mamifero::Mamifero():Animal("Mammalia"){} /**< Construtor padrão da Classe*/
+Mamifero::Mamifero(){} /**< Construtor padrão da Classe*/
+Mamifero::Mamifero(string natureza):Animal("Mammalia", natureza){} /**< Construtor padrão da Classe*/
 Mamifero::~Mamifero(){} /**< Destrutor da Classe*/
 /**
 * @brief Método de preenchimento dos atributos pertencente a classe anfibio

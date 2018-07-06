@@ -18,6 +18,7 @@ protected:
 	float envergadura;
 public:
 	Ave(); /**< Construtor padrão da Classe*/
+	Ave(std::string natureza); /**< Construtor padrão da Classe*/
 	~Ave(); /**< Destrutor da Classe*/
 	/**
 	* @brief Método de preenchimento dos atributos pertencente a classe anfibio

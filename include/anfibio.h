@@ -18,6 +18,7 @@ protected:
 	std::string ultima_muda;
 public:
 	Anfibio(); /**< Construtor padrão da Classe*/
+	Anfibio(std::string natureza); /**< Construtor padrão da Classe*/
 	~Anfibio(); /**< Destrutor da Classe*/
 	/**
 	* @brief Método de preenchimento dos atributos pertencente a classe anfibio
