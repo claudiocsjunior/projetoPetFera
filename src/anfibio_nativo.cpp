@@ -11,6 +11,13 @@
 #include "../include/nativo.h"
 
 AnfibioNativo::AnfibioNativo():Anfibio("Nativo"){} /**< Construtor padrão da Classe*/
+AnfibioNativo::AnfibioNativo(int id, std::string nome, std::string cientifico, std::string classe, char sexo, 
+		float tamanho, std::string natureza, std::string dieta, std::string batismo, Veterinario veterinario, 
+		Tratador tratador, int total_mudas, std::string ultima_muda, std::string uf_origem, 
+		std::string autorizacao, std::string ibama):
+		Anfibio(id, nome, cientifico, classe, sexo, tamanho, natureza, dieta, batismo, veterinario, tratador, 
+			total_mudas, ultima_muda),
+		Nativo(uf_origem, autorizacao, ibama){}
 AnfibioNativo::~AnfibioNativo(){} /**< Destrutor da Classe*/
 
 
@@ -87,6 +94,28 @@ std::ostream& operator<< (std::ostream &o, AnfibioNativo &a) {
 	  << endl;
 	return o;
 }
+/**
+* @brief Efetua a impressão de dados no formato para arquivo
+* @return string para impressão
+*/
+std::string AnfibioNativo::escreverArquivo(){
+	return to_string(this->id) + ";"
+	  + this->nome + ";"
+	  + this->cientifico + ";"
+	  + this->classe + ";"
+	  + this->sexo + ";"
+	  + to_string(this->tamanho) + ";"
+	  + this->natureza + ";"
+	  + this->dieta + ";"
+	  + this->batismo + ";"
+	  + to_string(this->veterinario.getId()) + ";"
+	  + to_string(this->tratador.getId()) + ";"
+	  + to_string(this->total_mudas) + ";"
+	  + this->ultima_muda + ";"
+	  + this->uf_origem + ";"
+	  + this->autorizacao + ";"
+	  +  this->ibama;
+}															
 
 
 																	

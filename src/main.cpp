@@ -14,8 +14,8 @@ int main(int argc, char const *argv[])
 
 	system("clear");
 	PetFera petfera;
-	//petfera.recuperar_informacoes_arquivo();
+	petfera.recuperar_informacoes_arquivo();
 	petfera.funcionalidades();
-	//petfera.salvar_informacoes_arquivo();
+	petfera.salvar_informacoes_arquivo();
 	return 0;
 }

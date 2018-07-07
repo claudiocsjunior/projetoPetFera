@@ -35,6 +35,9 @@ public:
 	static int contador_animal_id;	
 	Animal(); /**< Construtor padrão da Classe*/
 	Animal(std::string classe, std::string natureza); /**< Construtor paramatrizado da Classe*/
+	Animal(int id, std::string nome, std::string cientifico, std::string classe, char sexo, 
+		float tamanho, std::string natureza, std::string dieta, std::string batismo, Veterinario veterinario, 
+		Tratador tratador);	
 	virtual ~Animal(); /**< Destrutor da Classe*/
 	/**
 	* @brief Método de acesso para o atributo id

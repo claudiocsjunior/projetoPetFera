@@ -12,6 +12,12 @@
 #include <iostream>
 
 ReptilExotico::ReptilExotico():Reptil("Exotico"){} /**< Construtor padrão da Classe*/
+ReptilExotico::ReptilExotico(int id, std::string nome, std::string cientifico, std::string classe, char sexo, float tamanho,
+		std::string natureza, std::string dieta, std::string batismo, Veterinario veterinario, Tratador tratador,
+		bool venenoso, std::string tipo_veneno, std::string pais_origem, std::string ibama):
+		Reptil(id, nome, cientifico, classe, sexo, tamanho, natureza, dieta, batismo, veterinario, tratador, 
+			venenoso, tipo_veneno),
+		Exotico(pais_origem, ibama){}
 ReptilExotico::~ReptilExotico(){} /**< Destrutor da Classe*/
 
 /**
@@ -82,4 +88,26 @@ std::ostream& operator<< (std::ostream &o, ReptilExotico &a) {
 	  << endl;
 	return o;
 }
+
+/**
+* @brief Efetua a impressão de dados no formato para arquivo
+* @return string para impressão
+*/
+std::string ReptilExotico::escreverArquivo(){
+	return to_string(this->id) + ";"
+	  + this->nome + ";"
+	  + this->cientifico + ";"
+	  + this->classe + ";"
+	  + this->sexo + ";"
+	  + to_string(this->tamanho) + ";"
+	  + this->natureza + ";"
+	  + this->dieta + ";"
+	  + this->batismo + ";"
+	  + to_string(this->veterinario.getId()) + ";"
+	  + to_string(this->tratador.getId()) + ";"
+	  + to_string(this->venenoso) + ";"
+	  + this->tipo_veneno + ";"
+	  + this->pais_origem + ";"
+	  + this->ibama;
+}	
 																	

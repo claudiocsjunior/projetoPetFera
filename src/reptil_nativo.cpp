@@ -11,6 +11,13 @@
 #include "../include/nativo.h"
 
 ReptilNativo::ReptilNativo():Reptil("Nativo"){} /**< Construtor padrão da Classe*/
+ReptilNativo::ReptilNativo(int id, std::string nome, std::string cientifico, std::string classe, char sexo, float tamanho,
+		std::string natureza, std::string dieta, std::string batismo, Veterinario veterinario, Tratador tratador,
+		bool venenoso, std::string tipo_veneno, std::string uf_origem, std::string autorizacao, 
+		std::string ibama):
+		Reptil(id, nome, cientifico, classe, sexo, tamanho, natureza, dieta, batismo, veterinario, tratador, 
+			venenoso, tipo_veneno),
+		Nativo(uf_origem, autorizacao, ibama){}
 ReptilNativo::~ReptilNativo(){} /**< Destrutor da Classe*/
 
 
@@ -88,5 +95,27 @@ std::ostream& operator<< (std::ostream &o, ReptilNativo &a) {
 	return o;
 }
 
+/**
+* @brief Efetua a impressão de dados no formato para arquivo
+* @return string para impressão
+*/
+std::string ReptilNativo::escreverArquivo(){
+	return to_string(this->id) + ";"
+	  + this->nome + ";"
+	  + this->cientifico + ";"
+	  + this->classe + ";"
+	  + this->sexo + ";"
+	  + to_string(this->tamanho) + ";"
+	  + this->natureza + ";"
+	  + this->dieta + ";"
+	  + this->batismo + ";"
+	  + to_string(this->veterinario.getId()) + ";"
+	  + to_string(this->tratador.getId()) + ";"
+	  + to_string(this->venenoso) + ";"
+	  + this->tipo_veneno + ";"
+	  + this->uf_origem + ";"
+	  + this->autorizacao + ";"
+	  + this->ibama;
+}	
 
 																	

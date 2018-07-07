@@ -19,6 +19,9 @@ protected:
 public:
 	Reptil(); /**< Construtor padrão da Classe*/
 	Reptil(std::string natureza); /**< Construtor padrão da Classe*/
+	Reptil(int id, std::string nome, std::string cientifico, std::string classe, char sexo, 
+		float tamanho, std::string natureza, std::string dieta, std::string batismo, Veterinario veterinario, 
+		Tratador tratador, bool venenoso, std::string tipo_veneno);
 	~Reptil(); /**< Destrutor da Classe*/
 	/**
 	* @brief Método de preenchimento dos atributos pertencente a classe anfibio
@@ -35,6 +38,16 @@ public:
 	* @return atributo tipo veneno
 	*/
 	std::string getTipoVeneno();
+	/**
+	* @brief Método de alteração para o atributo venenoso
+	* @return 
+	*/
+	void setVenenoso(int venenoso);
+	/**
+	* @brief Método de alteração para o atributo tipo veneno
+	* @return atributo tipo veneno
+	*/
+	void setTipoVeneno(std::string tipo_veneno);
 	/**
 	* @brief Efetua a impressão dos dados
 	* @param[in] variável para o <<

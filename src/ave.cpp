@@ -13,6 +13,11 @@
 using namespace std;
 Ave::Ave(){} /**< Construtor padrão da Classe*/
 Ave::Ave(string natureza):Animal("Aves", natureza){} /**< Construtor padrão da Classe*/
+Ave::Ave(int id, std::string nome, std::string cientifico, std::string classe, char sexo, 
+		float tamanho, std::string natureza, std::string dieta, std::string batismo, Veterinario veterinario, 
+		Tratador tratador, float tamanho_bico, float envergadura):
+		Animal(id, nome, cientifico, classe, sexo, tamanho, natureza, dieta, batismo, veterinario, tratador),
+		tamanho_bico(tamanho_bico), envergadura(envergadura){}/**< Construtor padrão da Classe*/
 Ave::~Ave(){} /**< Destrutor da Classe*/
 /**
 * @brief Método de preenchimento dos atributos pertencente a classe anfibio
@@ -41,6 +46,21 @@ float Ave::getTamanhoBico(){
 */
 float Ave::getEnvergadura(){
 	return this->envergadura;
+}
+
+/**
+* @brief Método de alteraçao para o atributo envergadura
+* @return atributo tipo envergadura
+*/
+void Ave::setEnvergadura(float envergadura){
+	this->envergadura = envergadura;
+}
+/**
+* @brief Método de alterãção para o atributo tamanho bico
+* @return atributo tamanho bico
+*/
+void Ave::setTamanhoBico(float tamanho_bico){
+	this->tamanho_bico = tamanho_bico;
 }
 /**
 * @brief Efetua a impressão dos dados

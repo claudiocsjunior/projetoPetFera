@@ -18,6 +18,7 @@ protected:
 	std::string pais_origem;
 public:
 	Exotico(); /**< Construtor padrão da Classe*/
+	Exotico(std::string pais_origem, std::string ibama); /**< Construtor padrão da Classe*/
 	~Exotico(); /**< Destrutor da Classe*/
 	/**
 	* @brief Método de acesso para o pais origem

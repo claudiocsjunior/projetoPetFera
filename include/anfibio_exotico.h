@@ -16,6 +16,9 @@ class AnfibioExotico : public Anfibio, Exotico
 {	
 public:
 	AnfibioExotico(); /**< Construtor padrão da Classe*/
+	AnfibioExotico(int id, std::string nome, std::string cientifico, std::string classe, char sexo, float tamanho,
+		std::string natureza, std::string dieta, std::string batismo, Veterinario veterinario, Tratador tratador,
+		int total_mudas, std::string ultima_muda, std::string pais_origem, std::string ibama); /**< Construtor padrão da Classe*/
 	~AnfibioExotico(); /**< Destrutor da Classe*/
 	/**
 	* @brief Efetua a sobrecarga do operador >>
@@ -31,6 +34,12 @@ public:
 	* @return valor do cout
 	*/
 	friend ostream& operator<<(ostream &e, AnfibioExotico &a);
+
+	/**
+	* @brief Efetua a impressão de dados no formato para arquivo
+	* @return string para impressão
+	*/
+	std::string escreverArquivo();
 
 };
 

@@ -19,6 +19,9 @@ protected:
 public:
 	Ave(); /**< Construtor padrão da Classe*/
 	Ave(std::string natureza); /**< Construtor padrão da Classe*/
+	Ave(int id, std::string nome, std::string cientifico, std::string classe, char sexo, 
+		float tamanho, std::string natureza, std::string dieta, std::string batismo, Veterinario veterinario, 
+		Tratador tratador, float tamanho_bico, float envergadura);
 	~Ave(); /**< Destrutor da Classe*/
 	/**
 	* @brief Método de preenchimento dos atributos pertencente a classe anfibio
@@ -31,10 +34,21 @@ public:
 	*/
 	float getTamanhoBico();
 	/**
+	* @brief Método de alteraçao para o atributo envergadura
+	* @return atributo tipo envergadura
+	*/
+	void setEnvergadura(float envergadura);
+	/**
+	* @brief Método de alterãção para o atributo tamanho bico
+	* @return atributo tamanho bico
+	*/
+	void setTamanhoBico(float tamanho_bico);
+	/**
 	* @brief Método de acesso para o atributo envergadura
 	* @return atributo tipo envergadura
 	*/
 	float getEnvergadura();
+
 	/**
 	* @brief Efetua a impressão dos dados
 	* @param[in] variável para o <<

@@ -11,6 +11,13 @@
 #include "../include/nativo.h"
 
 MamiferoNativo::MamiferoNativo():Mamifero("Nativo"){} /**< Construtor padrão da Classe*/
+MamiferoNativo::MamiferoNativo(int id, std::string nome, std::string cientifico, std::string classe, char sexo, 
+		float tamanho, std::string natureza, std::string dieta, std::string batismo, Veterinario veterinario, 
+		Tratador tratador, std::string cor_pelo, std::string uf_origem, std::string autorizacao, 
+		std::string ibama):
+		Mamifero(id, nome, cientifico, classe, sexo, tamanho, natureza, dieta, batismo, veterinario, tratador, 
+			cor_pelo),
+		Nativo(uf_origem, autorizacao, ibama){}
 MamiferoNativo::~MamiferoNativo(){} /**< Destrutor da Classe*/
 
 
@@ -82,6 +89,28 @@ std::ostream& operator<< (std::ostream &o, MamiferoNativo &a) {
 	  << endl;
 	return o;
 }
+
+/**
+* @brief Efetua a impressão de dados no formato para arquivo
+* @return string para impressão
+*/
+std::string MamiferoNativo::escreverArquivo(){
+	return to_string(this->id) + ";"
+	  + this->nome + ";"
+	  + this->cientifico + ";"
+	  + this->classe + ";"
+	  + this->sexo + ";"
+	  + to_string(this->tamanho) + ";"
+	  + this->natureza + ";"
+	  + this->dieta + ";"
+	  + this->batismo + ";"
+	  + to_string(this->veterinario.getId()) + ";"
+	  + to_string(this->tratador.getId()) + ";"
+	  + this->cor_pelo + ";"
+	  + this->uf_origem + ";"
+	  + this->autorizacao + ";"
+	  + this->ibama;
+}	
 
 
 																	

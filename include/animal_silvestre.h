@@ -17,6 +17,7 @@ protected:
 	std::string ibama;	
 public:
 	AnimalSilvestre(); /**< Construtor padrão da Classe*/
+	AnimalSilvestre(std::string ibama); /**< Construtor padrão da Classe*/
 	~AnimalSilvestre(); /**< Destrutor da Classe*/
 
 	/**

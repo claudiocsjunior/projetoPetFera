@@ -13,6 +13,11 @@
 using namespace std;
 Mamifero::Mamifero(){} /**< Construtor padrão da Classe*/
 Mamifero::Mamifero(string natureza):Animal("Mammalia", natureza){} /**< Construtor padrão da Classe*/
+Mamifero::Mamifero(int id, std::string nome, std::string cientifico, std::string classe, char sexo, 
+		float tamanho, std::string natureza, std::string dieta, std::string batismo, Veterinario veterinario, 
+		Tratador tratador, std::string cor_pelo):
+		Animal(id, nome, cientifico, classe, sexo, tamanho, natureza, dieta, batismo, veterinario, tratador),
+		cor_pelo(cor_pelo){}
 Mamifero::~Mamifero(){} /**< Destrutor da Classe*/
 /**
 * @brief Método de preenchimento dos atributos pertencente a classe anfibio
@@ -32,6 +37,14 @@ bool Mamifero::preencher_atributos_locais(){
 */
 string Mamifero::getCorPelo(){
 	return this->cor_pelo;
+}
+
+/**
+* @brief Método de alteração para o atributo cor do pelo
+* @return 
+*/
+void Mamifero::setCorPelo(std::string cor_pelo){
+	this->cor_pelo = cor_pelo;
 }
 
 /**

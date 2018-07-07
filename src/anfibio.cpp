@@ -13,6 +13,11 @@
 using namespace std;
 Anfibio::Anfibio(){} /**< Construtor padrão da Classe*/
 Anfibio::Anfibio(string natureza):Animal("Amphibia", natureza){} /**< Construtor padrão da Classe*/
+Anfibio::Anfibio(int id, std::string nome, std::string cientifico, std::string classe, char sexo, 
+		float tamanho, std::string natureza, std::string dieta, std::string batismo, Veterinario veterinario, 
+		Tratador tratador, int total_mudas, std::string ultima_muda):
+		Animal(id, nome, cientifico, classe, sexo, tamanho, natureza, dieta, batismo, veterinario, tratador),
+		total_mudas(total_mudas), ultima_muda(ultima_muda){}
 Anfibio::~Anfibio(){} /**< Destrutor da Classe*/
 /**
 * @brief Método de preenchimento dos atributos pertencente a classe anfibio

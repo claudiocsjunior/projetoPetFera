@@ -13,6 +13,11 @@
 using namespace std;
 Reptil::Reptil(){} /**< Construtor padrão da Classe*/
 Reptil::Reptil(string natureza):Animal("Reptilia", natureza){} /**< Construtor padrão da Classe*/
+Reptil::Reptil(int id, std::string nome, std::string cientifico, std::string classe, char sexo, 
+		float tamanho, std::string natureza, std::string dieta, std::string batismo, Veterinario veterinario, 
+		Tratador tratador, bool venenoso, std::string tipo_veneno):
+		Animal(id, nome, cientifico, classe, sexo, tamanho, natureza, dieta, batismo, veterinario, tratador),
+		venenoso(venenoso), tipo_veneno(tipo_veneno){}
 Reptil::~Reptil(){} /**< Destrutor da Classe*/
 /**
 * @brief Método de preenchimento dos atributos pertencente a classe anfibio
@@ -41,6 +46,21 @@ bool Reptil::getVenenoso(){
 */
 string Reptil::getTipoVeneno(){
 	return this->tipo_veneno;
+}
+
+/**
+* @brief Método de alteração para o atributo venenoso
+* @return 
+*/
+void Reptil::setVenenoso(int venenoso){
+	this->venenoso = venenoso;
+}
+/**
+* @brief Método de alteração para o atributo tipo veneno
+* @return atributo tipo veneno
+*/
+void Reptil::setTipoVeneno(std::string tipo_veneno){
+	this->tipo_veneno = tipo_veneno;
 }
 
 /**

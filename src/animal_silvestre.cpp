@@ -12,6 +12,7 @@
 using namespace std;
 
 AnimalSilvestre::AnimalSilvestre(){} /**< Construtor padrão da Classe*/
+AnimalSilvestre::AnimalSilvestre(std::string ibama):ibama(ibama){} /**< Construtor padrão da Classe*/
 AnimalSilvestre::~AnimalSilvestre(){} /**< Destrutor da Classe*/
 
 /**

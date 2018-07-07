@@ -19,6 +19,7 @@ protected:
 	std::string autorizacao;
 public:
 	Nativo(); /**< Construtor padrão da Classe*/
+	Nativo(std::string uf_origem, std::string autorizacao, std::string ibama); /**< Construtor padrão da Classe*/
 	~Nativo(); /**< Destrutor da Classe*/
 	/**
 	* @brief Método de acesso para o uf origem

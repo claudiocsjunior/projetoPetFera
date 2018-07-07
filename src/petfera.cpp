@@ -22,6 +22,7 @@
 #include <cstdlib>
 #include <exception>	
 #include "../include/animal_service.h"
+#include "../include/nativo.h"
 #include <vector> /**< Inclusão da lib vector*/
 #include <memory> /**< Inclusão da lib memory*/
 
@@ -72,7 +73,7 @@ void PetFera::funcionalidades(){
 
 			cin >> escolha;
 			if(cin.fail())
-				throw invalid_argument("ARGUMENTO INVALIDO. SELECIONE UM DOS INTEIROS LISTADOS.");
+				throw ArgumentoInvalido();
 			try{
 
 				switch (escolha)
@@ -110,17 +111,17 @@ void PetFera::funcionalidades(){
 						consultar_animais();
 						break;		
 					default:
-						throw invalid_argument("ARGUMENTO INVALIDO. PARÂMETRO FORA DO ESCOPO DA LISTAGEM.");
+						throw ParametroForaDeEscopo();
 				}
-			}catch(invalid_argument &ex){
+			}catch(ParametroForaDeEscopo &ex){
 				system("clear");
 				cout << "______________________________________________________________" << endl;
-				cerr<<"Erro: "<<ex.what()<<endl;
+				cerr<<ex.what()<<endl;
 			}
-		}catch(invalid_argument &err){
+		}catch(ArgumentoInvalido &err){
 			system("clear");
 			cout << "______________________________________________________________" << endl;
-			cerr<<"Erro: "<<err.what()<<endl;
+			cerr<<err.what()<<endl;
 			escolha = 10;
 			cin.clear();
 	    	cin.ignore(numeric_limits<streamsize>::max(), '\n');
@@ -152,7 +153,7 @@ void PetFera::Adicionar_funcionario(){
 	try{
 		cin >> escolha_tipo_funcionario;
 		if(cin.fail())
-			throw invalid_argument("ARGUMENTO INVALIDO. SELECIONE UM DOS INTEIROS LISTADOS.");
+			throw ArgumentoInvalido();
 		try{
 
 
@@ -175,19 +176,19 @@ void PetFera::Adicionar_funcionario(){
 					}
 					break;
 				default:
-					throw invalid_argument("ARGUMENTO INVALIDO. PARÂMETRO FORA DO ESCOPO DA LISTAGEM.");
+					throw ParametroForaDeEscopo();
 			}
-		}catch(invalid_argument &ex){
+		}catch(ParametroForaDeEscopo &ex){
 			system("clear");
 			cout << "______________________________________________________________" << endl;
-			cerr<<"Erro: "<<ex.what()<<endl;
+			cerr<<ex.what()<<endl;
 		}
-	}catch(invalid_argument &err){
+	}catch(ArgumentoInvalido &err){
 		system("clear");
 		cin.clear();
     	cin.ignore(numeric_limits<streamsize>::max(), '\n');
     	cout << "______________________________________________________________" << endl;
-    	cerr<<"Erro: "<<err.what()<<endl;
+    	cerr<<err.what()<<endl;
     }
 }
 
@@ -205,27 +206,31 @@ bool PetFera::adicionar_veterinario(){
 		if(cin.fail()){
 			system("clear");
 			cout << "______________________________________________________________" << endl;
-			throw invalid_argument("ARGUMENTO INVALIDO. ALGUM CAMPO FOI PREENCHIDO INADEQUADAMENTE.");
+			throw CampoPreenchidoInadequedamente();
 		}
-		map<int,Funcionario>::iterator it;
-		for (it = funcionarios.begin(); it != funcionarios.end(); ++it)
-			if(it->second.getCpf() == veterinario.getCpf())
-				existe_igual = true;
-				
-		if(!existe_igual){
-			funcionarios[veterinario.getId()] = veterinario;
-			Funcionario::contador_id++;
-		}else{
-			system("clear");
-			cout << "______________________________________________________________" << endl;
-			cout << "JÁ EXITE FUNCIONÁRIO CADASTRADO COM O MESMO CPF" << endl;
+		try{
+			map<int,Funcionario>::iterator it;
+			for (it = funcionarios.begin(); it != funcionarios.end(); ++it)
+				if(it->second.getCpf() == veterinario.getCpf())
+					existe_igual = true;
+					
+			if(!existe_igual){
+				funcionarios[veterinario.getId()] = veterinario;
+				Funcionario::contador_id++;
+			}else{
+				system("clear");
+				cout << "______________________________________________________________" << endl;
+				throw FuncionarioComMesmoCPFExistente();
+			}
+		return true;
+		}catch(FuncionarioComMesmoCPFExistente &ex){
+			cerr<<ex.what()<<endl;
 			return false;
-		}
-		return true;	
-	}catch(invalid_argument &ex){
+		}		
+	}catch(CampoPreenchidoInadequedamente &ex){
 		cin.clear();
     	cin.ignore(numeric_limits<streamsize>::max(), '\n');
-		cerr<<"Erro: "<<ex.what()<<endl;
+		cerr<<ex.what()<<endl;
 		return false;
 	}
 	
@@ -244,24 +249,28 @@ bool PetFera::adicionar_tratador(){
 		if(cin.fail()){
 			system("clear");
 			cout << "______________________________________________________________" << endl;
-			throw invalid_argument("ARGUMENTO INVALIDO. ALGUM CAMPO FOI PREENCHIDO INADEQUADAMENTE.");
+			throw CampoPreenchidoInadequedamente();
 		}
-		map<int,Funcionario>::iterator it;
-		for (it = funcionarios.begin(); it != funcionarios.end(); ++it)
-			if(it->second.getCpf() == tratador.getCpf())
-				existe_igual = true;
-				
-		if(!existe_igual){
-			funcionarios[tratador.getId()] = tratador;
-			Funcionario::contador_id++;
-		}else{
-			system("clear");
-			cout << "______________________________________________________________" << endl;
-			cout << "JÁ EXITE FUNCIONÁRIO CADASTRADO COM O MESMO CPF" << endl;
+		try{
+			map<int,Funcionario>::iterator it;
+			for (it = funcionarios.begin(); it != funcionarios.end(); ++it)
+				if(it->second.getCpf() == tratador.getCpf())
+					existe_igual = true;
+					
+			if(!existe_igual){
+				funcionarios[tratador.getId()] = tratador;
+				Funcionario::contador_id++;
+			}else{
+				system("clear");
+				cout << "______________________________________________________________" << endl;
+				throw FuncionarioComMesmoCPFExistente();
+			}
+		}catch(FuncionarioComMesmoCPFExistente &ex){
+			cerr<<ex.what()<<endl;
 			return false;
-		}
+		}	
 		return true;	
-	}catch(invalid_argument &ex){
+	}catch(CampoPreenchidoInadequedamente &ex){
 		cin.clear();
     	cin.ignore(numeric_limits<streamsize>::max(), '\n');
 		cerr<<"Erro: "<<ex.what()<<endl;
@@ -278,15 +287,19 @@ void PetFera::listar_funcionarios(){
 	cout << "______________________________________________________________" << endl;
 	cout << "---FUNCIONÁRIOS CADASTRADOS---" << endl;
 	cout << endl;
-	if(funcionarios.empty()){
-		system("clear");
-		cout << "______________________________________________________________" << endl;
-		cout << "NÃO HÁ FUNCIONÁRIOS CADASTRADOS" << endl;
-	}else{
-		map<int,Funcionario>::iterator it;
-			for (it = funcionarios.begin(); it != funcionarios.end(); ++it)
-				cout << it->second << endl;
-	}
+	try{
+		if(funcionarios.empty()){
+			system("clear");
+			cout << "______________________________________________________________" << endl;
+			throw SemFuncionariosCadastrados();
+		}else{
+			map<int,Funcionario>::iterator it;
+				for (it = funcionarios.begin(); it != funcionarios.end(); ++it)
+					cout << it->second << endl;
+		}
+	}catch(SemFuncionariosCadastrados &ex){
+		cerr<<ex.what()<<endl;	
+	}	
 }
 
 /**
@@ -337,7 +350,7 @@ void PetFera::editar_funcionario(){
 					cout << endl;
 					system("clear");
 					cout << "______________________________________________________________" << endl;
-					throw invalid_argument("ARGUMENTO INVALIDO. ALGUM CAMPO FOI PREENCHIDO INADEQUADAMENTE.");
+					throw CampoPreenchidoInadequedamente();
 				}else{
 					if(busca_funcionario_cpf(cpf) == -1 || cpf == busca->second.getCpf()){
 						busca->second.setNome(nome);
@@ -367,10 +380,10 @@ void PetFera::editar_funcionario(){
 			cout << "______________________________________________________________" << endl;
 			cout << "NÃO HÁ FUNCIONÁRIOS CADASTRADOS" << endl;
 		}
-	}catch(invalid_argument &ex){
-	cin.clear();
-	cin.ignore(numeric_limits<streamsize>::max(), '\n');
-	cerr<<"Erro: "<<ex.what()<<endl;
+	}catch(CampoPreenchidoInadequedamente &ex){
+		cin.clear();
+		cin.ignore(numeric_limits<streamsize>::max(), '\n');
+		cerr<<"Erro: "<<ex.what()<<endl;
 	}
 }
 
@@ -388,13 +401,13 @@ void PetFera::remover_funcionario(){
 			cout << "FUNCIONÁRIO REMOVIDO COM SUCESSO!" << endl; 
 		}else{
 			system("clear");
-			throw invalid_argument("NÃO HÁ FUNCIONÁRIOS COM O CPF INFORMADO");
+			cout << "______________________________________________________________" << endl;
+			throw CPFNaoEncontrado();
 		}
 
-	}catch(invalid_argument &ex){
+	}catch(CPFNaoEncontrado &ex){
 		system("clear");
-		cout << "______________________________________________________________" << endl;
-		cerr<<"ERRO: "<<ex.what()<<endl;
+		cerr<<ex.what()<<endl;
 	}
 }	
 
@@ -447,7 +460,7 @@ void PetFera::adicionar_animal(){
 	try{
 		cin >> escolha_tipo_animal;
 		if(cin.fail())
-			throw invalid_argument("ARGUMENTO INVALIDO. SELECIONE UM DOS INTEIROS LISTADOS.");
+			throw ArgumentoInvalido();
 		try{
 
 
@@ -468,14 +481,14 @@ void PetFera::adicionar_animal(){
 					adicionar_ave();
 					break;
 				default:
-					throw invalid_argument("ARGUMENTO INVALIDO. PARÂMETRO FORA DO ESCOPO DA LISTAGEM.");
+					throw ParametroForaDeEscopo();
 			}
-		}catch(invalid_argument &ex){
+		}catch(ParametroForaDeEscopo &ex){
 			system("clear");
 			cout << "______________________________________________________________" << endl;
 			cerr<<"Erro: "<<ex.what()<<endl;
 		}
-	}catch(invalid_argument &err){
+	}catch(ArgumentoInvalido &err){
 		system("clear");
 		cin.clear();
     	cin.ignore(numeric_limits<streamsize>::max(), '\n');
@@ -507,7 +520,7 @@ void PetFera::adicionar_anfibio(){
 	try{
 		cin >> escolha_natureza;
 		if(cin.fail())
-			throw invalid_argument("ARGUMENTO INVALIDO. SELECIONE UM DOS INTEIROS LISTADOS.");
+			throw ArgumentoInvalido();
 		try{
 			system("clear");
 			if(escolha_natureza == 0)
@@ -535,14 +548,14 @@ void PetFera::adicionar_anfibio(){
 				}
 			}	
 			else{
-				throw invalid_argument("ARGUMENTO INVALIDO. PARÂMETRO FORA DO ESCOPO DA LISTAGEM.");
+				throw ParametroForaDeEscopo();
 			}
-		}catch(invalid_argument &ex){
+		}catch(ParametroForaDeEscopo &ex){
 			system("clear");
 			cout << "______________________________________________________________" << endl;
 			cerr<<"Erro: "<<ex.what()<<endl;
 		}
-	}catch(invalid_argument &err){
+	}catch(ArgumentoInvalido &err){
 		system("clear");
 		cin.clear();
     	cin.ignore(numeric_limits<streamsize>::max(), '\n');
@@ -574,7 +587,7 @@ void PetFera::adicionar_mamifero(){
 	try{
 		cin >> escolha_natureza;
 		if(cin.fail())
-			throw invalid_argument("ARGUMENTO INVALIDO. SELECIONE UM DOS INTEIROS LISTADOS.");
+			throw ArgumentoInvalido();
 		try{
 			system("clear");
 			if(escolha_natureza == 0)
@@ -603,14 +616,14 @@ void PetFera::adicionar_mamifero(){
 
 			}	
 			else{
-				throw invalid_argument("ARGUMENTO INVALIDO. PARÂMETRO FORA DO ESCOPO DA LISTAGEM.");
+				throw ParametroForaDeEscopo();
 			}
-		}catch(invalid_argument &ex){
+		}catch(ParametroForaDeEscopo &ex){
 			system("clear");
 			cout << "______________________________________________________________" << endl;
 			cerr<<"Erro: "<<ex.what()<<endl;
 		}
-	}catch(invalid_argument &err){
+	}catch(ArgumentoInvalido &err){
 		system("clear");
 		cin.clear();
     	cin.ignore(numeric_limits<streamsize>::max(), '\n');
@@ -641,7 +654,7 @@ void PetFera::adicionar_reptil(){
 	try{
 		cin >> escolha_natureza;
 		if(cin.fail())
-			throw invalid_argument("ARGUMENTO INVALIDO. SELECIONE UM DOS INTEIROS LISTADOS.");
+			throw ArgumentoInvalido();
 		try{
 			system("clear");
 			if(escolha_natureza == 0)
@@ -670,14 +683,14 @@ void PetFera::adicionar_reptil(){
 
 			}	
 			else{
-				throw invalid_argument("ARGUMENTO INVALIDO. PARÂMETRO FORA DO ESCOPO DA LISTAGEM.");
+				throw ParametroForaDeEscopo();
 			}
-		}catch(invalid_argument &ex){
+		}catch(ParametroForaDeEscopo &ex){
 			system("clear");
 			cout << "______________________________________________________________" << endl;
 			cerr<<"Erro: "<<ex.what()<<endl;
 		}
-	}catch(invalid_argument &err){
+	}catch(ArgumentoInvalido &err){
 		system("clear");
 		cin.clear();
     	cin.ignore(numeric_limits<streamsize>::max(), '\n');
@@ -710,7 +723,7 @@ void PetFera::adicionar_ave(){
 	try{
 		cin >> escolha_natureza;
 		if(cin.fail())
-			throw invalid_argument("ARGUMENTO INVALIDO. SELECIONE UM DOS INTEIROS LISTADOS.");
+			throw ArgumentoInvalido();
 		try{
 			system("clear");
 			if(escolha_natureza == 0)
@@ -740,14 +753,14 @@ void PetFera::adicionar_ave(){
 
 			}	
 			else{
-				throw invalid_argument("ARGUMENTO INVALIDO. PARÂMETRO FORA DO ESCOPO DA LISTAGEM.");
+				throw ParametroForaDeEscopo();
 			}
-		}catch(invalid_argument &ex){
+		}catch(ParametroForaDeEscopo &ex){
 			system("clear");
 			cout << "______________________________________________________________" << endl;
 			cerr<<"Erro: "<<ex.what()<<endl;
 		}
-	}catch(invalid_argument &err){
+	}catch(ArgumentoInvalido &err){
 		system("clear");
 		cin.clear();
     	cin.ignore(numeric_limits<streamsize>::max(), '\n');
@@ -940,19 +953,19 @@ void PetFera::remover_comercializar_animal(){
 			}else{
 				system("clear");
 				cout << "______________________________________________________________" << endl;
-				throw invalid_argument("ANIMAL NÃO ENCONTRADO."); 
+				cout << "ANIMAL NÃO ENCONTRADO."; 
 			}
 		}else{
 			system("clear");
 			cout << "______________________________________________________________" << endl;
-			throw invalid_argument("ARGUMENTO INVALIDO. INFORME UM INTEIRO PARA O ID."); 
+			throw ArgumentoInvalidoId(); 
 			
 
 		}
-	}catch(invalid_argument &ex){
+	}catch(ArgumentoInvalidoId &ex){
 		system("clear");
 		cout << "______________________________________________________________" << endl;
-		cerr<<"ERRO: "<<ex.what()<<endl;
+		cerr<<ex.what()<<endl;
 	}
 }	
 
@@ -1071,23 +1084,23 @@ void PetFera::editar_animal(){
 				}else{
 					system("clear");
 					cout << "______________________________________________________________" << endl;
-					throw invalid_argument("ANIMAL NÃO ENCONTRADO."); 
+					cout << "ANIMAL NÃO ENCONTRADO." << endl;; 
 				}
 				
 			}else{
 				system("clear");
 				cout << "______________________________________________________________" << endl;
-				cout << "NÃO HÁ ANIMAIS CADASTRADOS" << endl;
+				throw ArgumentoInvalidoId();
 			}		
 		}else{
 			system("clear");
 			cout << "______________________________________________________________" << endl;
 			cout << "NÃO HÁ ANIMAIS CADASTRADOS" << endl;
 		}
-	}catch(invalid_argument &ex){
+	}catch(ArgumentoInvalidoId &ex){
 	cin.clear();
 	cin.ignore(numeric_limits<streamsize>::max(), '\n');
-	cerr<<"Erro: "<<ex.what()<<endl;
+	cerr<<ex.what()<<endl;
 	}
 }
 
@@ -1115,7 +1128,7 @@ void PetFera::consultar_filtro_animal_classe(){
 	try{
 		cin >> escolha_tipo_filtro;
 		if(cin.fail())
-			throw invalid_argument("ARGUMENTO INVALIDO. SELECIONE UM DOS INTEIROS LISTADOS.");
+			throw ArgumentoInvalido();
 		try{
 			switch (escolha_tipo_filtro)
 			{
@@ -1128,19 +1141,19 @@ void PetFera::consultar_filtro_animal_classe(){
 					consultar_filtro_classe();
 					break;
 				default:
-					throw invalid_argument("ARGUMENTO INVALIDO. PARÂMETRO FORA DO ESCOPO DA LISTAGEM.");
+					throw ParametroForaDeEscopo();
 			}
-		}catch(invalid_argument &ex){
+		}catch(ParametroForaDeEscopo &ex){
 			system("clear");
 			cout << "______________________________________________________________" << endl;
 			cerr<<"Erro: "<<ex.what()<<endl;
 		}
-	}catch(invalid_argument &err){
+	}catch(ArgumentoInvalido &err){
 		system("clear");
 		cin.clear();
     	cin.ignore(numeric_limits<streamsize>::max(), '\n');
     	cout << "______________________________________________________________" << endl;
-    	cerr<<"Erro: "<<err.what()<<endl;
+    	cerr<<err.what()<<endl;
     }
 }
 
@@ -1226,7 +1239,7 @@ void PetFera::consultar_filtro_classe(){
 	try{
 		cin >> escolha_tipo_classe;
 		if(cin.fail())
-			throw invalid_argument("ARGUMENTO INVALIDO. SELECIONE UM DOS INTEIROS LISTADOS.");
+			throw ArgumentoInvalido();
 		try{
 			system("clear");
 			cout << "______________________________________________________________" << endl;
@@ -1278,15 +1291,15 @@ void PetFera::consultar_filtro_classe(){
 								cout << mn->second << endl;	
 					cout << "______________________________________________________________" << endl;
 				}else{
-					throw invalid_argument("ARGUMENTO INVALIDO. PARÂMETRO FORA DO ESCOPO DA LISTAGEM.");
+					throw ParametroForaDeEscopo();
 				}	
 
-		}catch(invalid_argument &ex){
+		}catch(ParametroForaDeEscopo &ex){
 			system("clear");
 			cout << "______________________________________________________________" << endl;
 			cerr<<"Erro: "<<ex.what()<<endl;
 		}
-	}catch(invalid_argument &err){
+	}catch(ArgumentoInvalido &err){
 		system("clear");
 		cin.clear();
     	cin.ignore(numeric_limits<streamsize>::max(), '\n');
@@ -1363,97 +1376,254 @@ void PetFera::consultar_filtro_veterinario_tratador(){
 * @brief método de recuperação das informações dos arquivos
 * @return 
 */
-/*
 void PetFera::recuperar_informacoes_arquivo(){
+	string line;
+	try{
 	fstream arqFuncionarios;
 	arqFuncionarios.open("funcionarios.csv");
-	string line;
-
-	if (arqFuncionarios.is_open())
-	{
-		while (!arqFuncionarios.eof())
-		{
-			 cout << "entrei" << endl;
-			getline(arqFuncionarios, line);
-
-		  	std::vector<std::string> result = split_string(line, ";");
-		  	//string id = result[0];
-		  	string funcao = result[1];
-		  	string cpf = result[2];
-		  	//int idade = result[3];
-		  	string tipo_sanguineo = result[4];
-		 	//char fatorRH = result[5];
-			string especialidade = result[6];
-			 //cout << funcao << endl;
-		  //Fruta * fruta = new Fruta(_codigo, _descricao, _preco, _data, _validade);
-
-
-		}
-		arqFuncionarios.close();
-	}else{
-		cout << "Arquivo de funcionarios não foi encontrado. Verificar o caminho do arquivo." << endl;
-	}
 	
+	
+		if (arqFuncionarios.is_open())
+		{
+			while (!arqFuncionarios.eof())
+			{
+				 
+				getline(arqFuncionarios, line);
+				if(line != ""){
+					std::vector<std::string> result = split_string(line, ";");
+					int id = atoi(result[0].c_str());
+			  		string funcao = result[1];
+			  		string nome = result[2];
+			  		string cpf = result[3];
+			  		int idade = atoi(result[4].c_str());
+			  		string tipo_sanguineo = result[5];
+			 		char fatorRH = result[6][0];
+					string especialidade = result[7];
+					
+					Funcionario funcionario(id, funcao, nome, cpf, idade, tipo_sanguineo, fatorRH, especialidade);
+					funcionarios[funcionario.getId()] = funcionario;
+				}
+			}
+			arqFuncionarios.close();	
+		}else{
+			//cout << "Arquivo de funcionarios não foi encontrado. Verificar o caminho do arquivo." << endl;
+			throw ErroAberturaArquivoFuncionario();
+		}
+		
+	}catch(ErroAberturaArquivoFuncionario &ex){
+    	cout << "______________________________________________________________" << endl;
+    	cerr<<ex.what()<<endl;
+    }
+	
+    try{
+	fstream arqAnimais;
+	arqAnimais.open("animais.csv");
+	
+		if (arqAnimais.is_open())
+		{
+			while (!arqAnimais.eof())
+			{
+				 
+				getline(arqAnimais, line);
+				if(line != ""){
+					std::vector<std::string> result = split_string(line, ";");
+						map<int, Funcionario>::iterator busca_vet = funcionarios.find(atoi(result[9].c_str()));
+						Veterinario & vet = static_cast<Veterinario&>(busca_vet->second);
+						map<int, Funcionario>::iterator busca_trat = funcionarios.find(atoi(result[10].c_str()));
+						Tratador &trat = static_cast<Tratador&>(busca_trat->second);
+
+					if(result[3] == "Amphibia" && result[6] == "Nativo"){
+
+						AnfibioNativo anfibio_nativo(atoi(result[0].c_str()), result[1], result[2], result[3], 
+						result[4][0], atoi(result[5].c_str()) , result[6], result[7], result[8], vet, 
+						trat, atoi(result[11].c_str()), result[12], result[13], result[14], result[15]);
+
+						//cout << anfibio_nativo << endl;
+						anfibios_nativos[anfibio_nativo.getId()] = anfibio_nativo;
+						Animal & animalBasico = static_cast<Animal&>(anfibio_nativo);
+						mapeamento_busca[anfibio_nativo.getId()] = animalBasico;
+
+					}else if(result[3] == "Amphibia" && result[6] == "Exotico"){
+
+						AnfibioExotico anfibio_exotico(atoi(result[0].c_str()), result[1], result[2], result[3], 
+						result[4][0], atoi(result[5].c_str()) , result[6], result[7], result[8], vet, 
+						trat, atoi(result[11].c_str()), result[12], result[13], result[14]);
+
+						//cout << anfibio_exotico << endl;
+						anfibios_exoticos[anfibio_exotico.getId()] = anfibio_exotico;
+						Animal & animalBasico = static_cast<Animal&>(anfibio_exotico);
+						mapeamento_busca[anfibio_exotico.getId()] = animalBasico;
+
+					}else if(result[3] == "Mammalia" && result[6] == "Nativo"){
+						MamiferoNativo mamiferos_nativo(atoi(result[0].c_str()), result[1], result[2], result[3], 
+						result[4][0], atoi(result[5].c_str()) , result[6], result[7], result[8], vet, 
+						trat, result[11], result[12], result[13], result[14]);
+
+						//cout << mamiferos_nativo << endl;
+						mamiferos_nativos[mamiferos_nativo.getId()] = mamiferos_nativo;
+						Animal & animalBasico = static_cast<Animal&>(mamiferos_nativo);
+						mapeamento_busca[mamiferos_nativo.getId()] = animalBasico;
+
+					}else if(result[3] == "Mammalia" && result[6] == "Exotico"){
+						MamiferoExotico mamifero_exotico(atoi(result[0].c_str()), result[1], result[2], result[3], 
+						result[4][0], atoi(result[5].c_str()) , result[6], result[7], result[8], vet, 
+						trat, result[11], result[12], result[13]);
+
+						//cout << mamiferos_nativo << endl;
+						mamiferos_exoticos[mamifero_exotico.getId()] = mamifero_exotico;
+						Animal & animalBasico = static_cast<Animal&>(mamifero_exotico);
+						mapeamento_busca[mamifero_exotico.getId()] = animalBasico;
+
+					}else if(result[3] == "Reptilia" && result[6] == "Nativo"){
+						ReptilNativo reptil_nativo(atoi(result[0].c_str()), result[1], result[2], result[3], 
+						result[4][0], atoi(result[5].c_str()) , result[6], result[7], result[8], vet, 
+						trat, atoi(result[11].c_str()), result[12], result[13], result[14], result[15]);
+
+						//cout << mamiferos_nativo << endl;
+						repteis_nativos[reptil_nativo.getId()] = reptil_nativo;
+						Animal & animalBasico = static_cast<Animal&>(reptil_nativo);
+						mapeamento_busca[reptil_nativo.getId()] = animalBasico;
+
+					}else if(result[3] == "Reptilia" && result[6] == "Exotico"){
+						ReptilExotico reptil_exotico(atoi(result[0].c_str()), result[1], result[2], result[3], 
+						result[4][0], atoi(result[5].c_str()) , result[6], result[7], result[8], vet, 
+						trat, atoi(result[11].c_str()), result[12], result[13], result[14]);
+
+						//cout << mamiferos_nativo << endl;
+						repteis_exoticos[reptil_exotico.getId()] = reptil_exotico;
+						Animal & animalBasico = static_cast<Animal&>(reptil_exotico);
+						mapeamento_busca[reptil_exotico.getId()] = animalBasico;
+
+					}else if(result[3] == "Aves" && result[6] == "Nativo"){
+						AveNativa ave_nativa(atoi(result[0].c_str()), result[1], result[2], result[3], 
+						result[4][0], atoi(result[5].c_str()) , result[6], result[7], result[8], vet, 
+						trat, atoi(result[11].c_str()), atoi(result[12].c_str()), result[13], result[14], result[15]);
+
+						//cout << mamiferos_nativo << endl;
+						aves_nativas[ave_nativa.getId()] = ave_nativa;
+						Animal & animalBasico = static_cast<Animal&>(ave_nativa);
+						mapeamento_busca[ave_nativa.getId()] = animalBasico;
+
+					}else if(result[3] == "Aves" && result[6] == "Exotico"){
+						AveExotica ave_exotica(atoi(result[0].c_str()), result[1], result[2], result[3], 
+						result[4][0], atoi(result[5].c_str()) , result[6], result[7], result[8], vet, 
+						trat, atoi(result[11].c_str()), atoi(result[12].c_str()), result[13], result[14]);
+
+						//cout << mamiferos_nativo << endl;
+						aves_exoticas[ave_exotica.getId()] = ave_exotica;
+						Animal & animalBasico = static_cast<Animal&>(ave_exotica);
+						mapeamento_busca[ave_exotica.getId()] = animalBasico;
+					}	
+				}
+			}
+			arqAnimais.close();
+		}else{
+			//cout << "Arquivo de funcionarios não foi encontrado. Verificar o caminho do arquivo." << endl;
+			throw ErroAberturaArquivoAnimal();
+		}
+	
+	}catch(ErroAberturaArquivoAnimal &err){
+    	cout << "______________________________________________________________" << endl;
+    	cerr<<err.what()<<endl;
+    }
+
 }
-*/
 /**
 * @brief método para salvar informações em arquivos
 * @return 
 */
-/*
+
 void PetFera::salvar_informacoes_arquivo(){
-	fstream arqFuncionarios;
-	arqFuncionarios.open("funcionarios.csv", ios::out);
+	try{
+		fstream arqFuncionarios;
+		arqFuncionarios.open("funcionarios.csv", ios::out);
 
-	if (arqFuncionarios.is_open())
-	{
-		map<int,Funcionario>::iterator it;
-		for (it = funcionarios.begin(); it != funcionarios.end(); ++it){
-			arqFuncionarios << it->second.getId() << ";" << 
-							   it->second.getFuncao() << ";" <<
-							   it->second.getNome() << ";" <<
-							   it->second.getCpf() << ";" <<
-							   it->second.getIdade() << ";" <<
-							   it->second.getTipoSanguineo() << ";" <<
-							   it->second.getFatorRH() << ";" <<
-							   it->second.getEspecialidade() << endl;	   
+		if (arqFuncionarios.is_open())
+		{
+			map<int,Funcionario>::iterator it;
+			for (it = funcionarios.begin(); it != funcionarios.end(); ++it){
+				arqFuncionarios << it->second.getId() << ";" << 
+								   it->second.getFuncao() << ";" <<
+								   it->second.getNome() << ";" <<
+								   it->second.getCpf() << ";" <<
+								   it->second.getIdade() << ";" <<
+								   it->second.getTipoSanguineo() << ";" <<
+								   it->second.getFatorRH() << ";" <<
+								   it->second.getEspecialidade() << endl;	   
+			}
+			arqFuncionarios.close();	
+		}else{
+			//cout << "Arquivo de funcionarios não foi encontrado. Verificar o caminho do arquivo." << endl;
+			throw ErroAberturaArquivoFuncionario();
 		}
-	}else{
-		cout << "Arquivo de funcionarios não foi encontrado. Verificar o caminho do arquivo." << endl;
-	}
-	arqFuncionarios.close();
+	}catch(ErroAberturaArquivoFuncionario &ex){
+    	cout << "______________________________________________________________" << endl;
+    	cerr<<ex.what()<<endl;
+    }
 
-	fstream arqAnimais;
-	arqAnimais.open("animais.csv", ios::out);
 
-	if (arqAnimais.is_open())
-	{	
-		map<int,Animal>::iterator an;
-		for (an = animais.begin(); an != animais.end(); ++an){
-			arqAnimais <<  an->second.getId() << ";" << 
-					       an->second.getClasse() << ";" <<
-						   an->second.getNome() << ";" <<
-						   an->second.getCientifico() << ";" <<
-						   an->second.getSexo() << ";" <<
-						   an->second.getDieta() << ";" <<
-						   an->second.getVeterinario().getId() << ";" <<
-						   an->second.getTratador().getId() << ";" <<
-						   an->second.getBatismo() << endl;	   
+    try{
+		fstream arqAnimais;
+		arqAnimais.open("animais.csv", ios::out);
+
+		if (arqAnimais.is_open())
+		{	
+			map<int,Animal>::iterator p;
+			for (p = mapeamento_busca.begin(); p != mapeamento_busca.end(); ++p){
+
+				if(p->second.getClasse() == "Amphibia" && p->second.getNatureza() == "Nativo"){
+					map<int, AnfibioNativo>::iterator an = anfibios_nativos.find(p->first);
+					arqAnimais << an->second.escreverArquivo() << endl;
+
+				}else if(p->second.getClasse() == "Amphibia" && p->second.getNatureza() == "Exotico"){
+					map<int, AnfibioExotico>::iterator ae = anfibios_exoticos.find(p->first);
+					arqAnimais << ae->second.escreverArquivo() << endl;
+				
+				}else if(p->second.getClasse() == "Mammalia" && p->second.getNatureza() == "Nativo"){
+					map<int, MamiferoNativo>::iterator mn = mamiferos_nativos.find(p->first);
+					arqAnimais << mn->second.escreverArquivo() << endl;
+				
+				}else if(p->second.getClasse() == "Mammalia" && p->second.getNatureza() == "Exotico"){
+					map<int, MamiferoExotico>::iterator me = mamiferos_exoticos.find(p->first);
+					arqAnimais << me->second.escreverArquivo() << endl;
+				
+				}else if(p->second.getClasse() == "Reptilia" && p->second.getNatureza() == "Nativo"){
+					map<int, ReptilNativo>::iterator rn = repteis_nativos.find(p->first);
+					arqAnimais << rn->second.escreverArquivo() << endl;
+				
+				}else if(p->second.getClasse() == "Reptilia" && p->second.getNatureza() == "Exotico"){
+					map<int, ReptilExotico>::iterator re = repteis_exoticos.find(p->first);
+					arqAnimais << re->second.escreverArquivo() << endl;
+				
+				}else if(p->second.getClasse() == "Aves" && p->second.getNatureza() == "Nativo"){
+					map<int, AveNativa>::iterator an = aves_nativas.find(p->first);
+					arqAnimais << an->second.escreverArquivo() << endl;
+				
+				}else if(p->second.getClasse() == "Aves" && p->second.getNatureza() == "Exotico"){
+					map<int, AveExotica>::iterator aex = aves_exoticas.find(p->first);
+					cout << aex->second << endl;
+					arqAnimais << aex->second.escreverArquivo() << endl;
+				
+				}	
+			}
+			arqAnimais.close();
+		}else{
+			throw ErroAberturaArquivoAnimal();
+			//cout << "Arquivo de funcionarios não foi encontrado. Verificar o caminho do arquivo." << endl;
 		}
-	}else{
-		cout << "Arquivo de funcionarios não foi encontrado. Verificar o caminho do arquivo." << endl;
-	}
-	arqAnimais.close();
-
+	}catch(ErroAberturaArquivoAnimal &err){
+    	cout << "______________________________________________________________" << endl;
+    	cerr<<err.what()<<endl;
+    }
 }
-*/
+
 /**
 * @brief Função que quebra a linha lida do arquivo
 * @param[in] Recebe linha(str) do tipo string
 * @param[in] Recebe valor que será procurado para quebra do tipo char
 * @return result do tipo vetor
 */
-/*
+
 std::vector<std::string> PetFera::split_string(std::string str, const char* op) {
 	std::vector<std::string> result;
 	std::string rest = str, block;
@@ -1470,4 +1640,3 @@ std::vector<std::string> PetFera::split_string(std::string str, const char* op) 
 
 	return result;
 }
-*/

@@ -12,6 +12,12 @@
 #include <iostream>
 
 MamiferoExotico::MamiferoExotico():Mamifero("Exotico"){} /**< Construtor padrão da Classe*/
+MamiferoExotico::MamiferoExotico(int id, std::string nome, std::string cientifico, std::string classe, char sexo, float tamanho,
+		std::string natureza, std::string dieta, std::string batismo, Veterinario veterinario, Tratador tratador,
+		std::string cor_pelo, std::string pais_origem, std::string ibama):
+		Mamifero(id, nome, cientifico, classe, sexo, tamanho, natureza, dieta, batismo, veterinario, tratador, 
+			cor_pelo),
+		Exotico(pais_origem, ibama){}
 MamiferoExotico::~MamiferoExotico(){} /**< Destrutor da Classe*/
 
 /**
@@ -78,4 +84,25 @@ std::ostream& operator<< (std::ostream &o, MamiferoExotico &a) {
 	  << endl;
 	return o;
 }
+
+/**
+* @brief Efetua a impressão de dados no formato para arquivo
+* @return string para impressão
+*/
+std::string MamiferoExotico::escreverArquivo(){
+	return to_string(this->id) + ";"
+	  + this->nome + ";"
+	  + this->cientifico + ";"
+	  + this->classe + ";"
+	  + this->sexo + ";"
+	  + to_string(this->tamanho) + ";"
+	  + this->natureza + ";"
+	  + this->dieta + ";"
+	  + this->batismo + ";"
+	  + to_string(this->veterinario.getId()) + ";"
+	  + to_string(this->tratador.getId()) + ";"
+	  + this->cor_pelo + ";"
+	  + this->pais_origem + ";"
+	  + this->ibama;
+}	
 																	

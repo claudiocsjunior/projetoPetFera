@@ -11,6 +11,13 @@
 #include "../include/nativo.h"
 
 AveNativa::AveNativa():Ave("Nativo"){} /**< Construtor padrão da Classe*/
+AveNativa::AveNativa(int id, std::string nome, std::string cientifico, std::string classe, char sexo, 
+		float tamanho, std::string natureza, std::string dieta, std::string batismo, Veterinario veterinario, 
+		Tratador tratador, float tamanho_bico, float envergadura, std::string uf_origem, std::string autorizacao, 
+		std::string ibama):
+		Ave(id, nome, cientifico, classe, sexo, tamanho, natureza, dieta, batismo, veterinario, 
+		tratador, tamanho_bico, envergadura),
+		Nativo(uf_origem, autorizacao, ibama){}
 AveNativa::~AveNativa(){} /**< Destrutor da Classe*/
 
 
@@ -86,6 +93,29 @@ std::ostream& operator<< (std::ostream &o, AveNativa &a) {
 	  << "| IBAMA: " <<  a.ibama
 	  << endl;
 	return o;
+}
+
+/**
+* @brief Efetua a impressão de dados no formato para arquivo
+* @return string para impressão
+*/
+std::string AveNativa::escreverArquivo(){
+	return to_string(this->id) + ";"
+	  + this->nome + ";"
+	  + this->cientifico + ";"
+	  + this->classe + ";"
+	  + this->sexo + ";"
+	  + to_string(this->tamanho) + ";"
+	  + this->natureza + ";"
+	  + this->dieta + ";"
+	  + this->batismo + ";"
+	  + to_string(this->veterinario.getId()) + ";"
+	  + to_string(this->tratador.getId()) + ";"
+	  + to_string(this->tamanho_bico) + ";"
+	  + to_string(this->envergadura) + ";"
+	  + this->uf_origem + ";"
+	  + this->autorizacao + ";"
+	  + this->ibama;
 }
 
 

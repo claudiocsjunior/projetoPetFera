@@ -16,6 +16,9 @@ class ReptilExotico : public Reptil, Exotico
 {	
 public:
 	ReptilExotico(); /**< Construtor padrão da Classe*/
+	ReptilExotico(int id, std::string nome, std::string cientifico, std::string classe, char sexo, float tamanho,
+		std::string natureza, std::string dieta, std::string batismo, Veterinario veterinario, Tratador tratador,
+		bool venenoso, std::string tipo_veneno, std::string pais_origem, std::string ibama); /**< Construtor padrão da Classe*/
 	~ReptilExotico(); /**< Destrutor da Classe*/
 	/**
 	* @brief Efetua a sobrecarga do operador >>
@@ -31,6 +34,11 @@ public:
 	* @return valor do cout
 	*/
 	friend ostream& operator<<(ostream &e, ReptilExotico &a);
+	/**
+	* @brief Efetua a impressão de dados no formato para arquivo
+	* @return string para impressão
+	*/
+	std::string escreverArquivo();
 
 };
 

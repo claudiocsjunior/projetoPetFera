@@ -16,6 +16,10 @@ class MamiferoNativo : public Mamifero, Nativo
 {	
 public:
 	MamiferoNativo(); /**< Construtor padrão da Classe*/
+	MamiferoNativo(int id, std::string nome, std::string cientifico, std::string classe, char sexo, 
+		float tamanho, std::string natureza, std::string dieta, std::string batismo, Veterinario veterinario, 
+		Tratador tratador, std::string cor_pelo, std::string uf_origem, std::string autorizacao, 
+		std::string ibama);
 	~MamiferoNativo(); /**< Destrutor da Classe*/
 	/**
 	* @brief Efetua a sobrecarga do operador >>
@@ -31,6 +35,11 @@ public:
 	* @return valor do cout
 	*/
 	friend ostream& operator<<(ostream &e, MamiferoNativo &a);
+	/**
+	* @brief Efetua a impressão de dados no formato para arquivo
+	* @return string para impressão
+	*/
+	std::string escreverArquivo();
 
 };
 

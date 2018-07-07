@@ -161,12 +161,12 @@ public:
 	* @brief método de recuperação das informações dos arquivos
 	* @return 
 	*/
-	//void recuperar_informacoes_arquivo();
+	void recuperar_informacoes_arquivo();
 	/**
 	* @brief método para salvar informações em arquivos
 	* @return 
 	*/
-	//void salvar_informacoes_arquivo();
+	void salvar_informacoes_arquivo();
 
 	/**
 	* @brief Função que quebra a linha lida do arquivo

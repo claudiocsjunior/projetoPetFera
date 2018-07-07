@@ -16,6 +16,10 @@ class AnfibioNativo : public Anfibio, Nativo
 {	
 public:
 	AnfibioNativo(); /**< Construtor padrão da Classe*/
+	AnfibioNativo(int id, std::string nome, std::string cientifico, std::string classe, char sexo, 
+		float tamanho, std::string natureza, std::string dieta, std::string batismo, Veterinario veterinario, 
+		Tratador tratador, int total_mudas, std::string ultima_muda, std::string uf_origem, 
+		std::string autorizacao, std::string ibama);
 	~AnfibioNativo(); /**< Destrutor da Classe*/
 	/**
 	* @brief Efetua a sobrecarga do operador >>
@@ -31,6 +35,12 @@ public:
 	* @return valor do cout
 	*/
 	friend ostream& operator<<(ostream &e, AnfibioNativo &a);
+	
+	/**
+	* @brief Efetua a impressão de dados no formato para arquivo
+	* @return string para impressão
+	*/
+	std::string escreverArquivo();
 
 };
 

@@ -30,6 +30,7 @@ public:
 	static int contador_id;	
 	Funcionario(); /**< Construtor padrão da Classe*/
 	Funcionario(std::string funcao); /**< Construtor paramatrizado da Classe*/
+	Funcionario(int id, string funcao, string nome, string cpf, int idade, string tipo_sanguineo, char fatorRH, string especialidade); /**< Construtor paramatrizado da Classe*/
 	virtual ~Funcionario(); /**< Destrutor padrão da Classe*/
 	/**
 	* @brief Método de acesso para o atributo id

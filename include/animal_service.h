@@ -22,6 +22,13 @@
 #include "exotico.h"
 #include "anfibio_nativo.h"
 #include "animal_silvestre.h"
+#include "mamifero_exotico.h"
+#include "mamifero_nativo.h"
+#include "reptil_exotico.h"
+#include "reptil_nativo.h"
+#include "ave_exotica.h"
+#include "ave_nativa.h"
+#include "nativo.h"
 #include <string>
 #include <map>
 #include <fstream> /**< Inclusão da lib fstream*/
@@ -36,8 +43,7 @@ public:
 	~AnimalService(); /**< Destrutor da Classe*/
 	T adicionar(T &animal, PetFera* petFera);
 	T editar(T &animal, PetFera* petFera);
-	bool alterar_detalhes(Animal &animal, T &tipo_animal,PetFera* petFera);
-};
+	};
 
 template <typename T>
 AnimalService<T>::AnimalService(){}
@@ -107,18 +113,5 @@ T AnimalService<T>::editar (T &animal, PetFera* petFera) {
 	}  
 } 
 
-template <typename T>
-bool AnimalService<T>::alterar_detalhes (Animal &animal, T &iterador, PetFera* petFera) { 
-	iterador->second.setNome(animal.getNome());
-	iterador->second.setCientifico(animal.getCientifico());
-	iterador->second.setSexo(animal.getSexo());
-	iterador->second.setTamanho(animal.getTamanho());
-	iterador->second.setDieta(animal.getDieta());
-	iterador->second.setBatismo(animal.getBatismo());
-	iterador->second.preencher_atributos_locais();
-	system("clear");
-	cout << "______________________________________________________________" << endl;
-	return true;
-} 
 
 #endif

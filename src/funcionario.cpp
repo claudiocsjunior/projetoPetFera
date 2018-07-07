@@ -40,6 +40,17 @@ Funcionario::Funcionario(std::string funcao){
 	this->funcao = funcao;
 
 }
+Funcionario::Funcionario(int id, string funcao, string nome, string cpf, int idade, string tipo_sanguineo, char fatorRH, string especialidade){
+	this->id = id;
+	this->nome = nome;
+	this->cpf = cpf;
+	this->idade = idade;
+	this->tipo_sanguineo = tipo_sanguineo;
+	this->fatorRH = fatorRH;
+	this->especialidade = especialidade;
+	this->funcao = funcao;
+	contador_id = id + 1;
+}
 
 /**
 * @brief Destrutor do objeto

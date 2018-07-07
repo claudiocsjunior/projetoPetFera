@@ -45,6 +45,26 @@ Animal::Animal(std::string classe, string natureza){
 	this->natureza = natureza;
 }
 
+/**
+* @brief Construtor paramatrizado da Classe
+*/
+Animal::Animal(int id, std::string nome, std::string cientifico, std::string classe, char sexo, 
+		float tamanho, std::string natureza, std::string dieta, std::string batismo, Veterinario veterinario, 
+		Tratador tratador){
+	this->id = id;
+	this->classe = classe;
+	this->nome = nome;
+	this->cientifico = cientifico;
+	this->sexo = sexo;
+	this->tamanho = tamanho;
+	this->dieta = dieta;
+	this->batismo = batismo;
+	this->natureza = natureza;
+	this->veterinario = veterinario;
+	this->tratador = tratador;
+
+	contador_animal_id = id +1;
+}
 
 /**
 * @brief Destrutor do objeto

@@ -10,6 +10,7 @@
 #include "../include/animal_silvestre.h"
 
 Exotico::Exotico(){} /**< Construtor padrão da Classe*/
+Exotico::Exotico(std::string pais_origem, std::string ibama):AnimalSilvestre(ibama), pais_origem(pais_origem){} /**< Construtor padrão da Classe*/
 Exotico::~Exotico(){} /**< Destrutor da Classe*/
 /**
 * @brief Método de acesso para o pais origem

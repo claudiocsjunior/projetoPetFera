@@ -18,6 +18,9 @@ protected:
 public:
 	Mamifero(); /**< Construtor padrão da Classe*/
 	Mamifero(std::string natureza); /**< Construtor padrão da Classe*/
+	Mamifero(int id, std::string nome, std::string cientifico, std::string classe, char sexo, 
+		float tamanho, std::string natureza, std::string dieta, std::string batismo, Veterinario veterinario, 
+		Tratador tratador, std::string cor_pelo);
 	~Mamifero(); /**< Destrutor da Classe*/
 	/**
 	* @brief Método de preenchimento dos atributos pertencente a classe anfibio
@@ -29,6 +32,11 @@ public:
 	* @return atributo cor pelo
 	*/
 	std::string getCorPelo();
+	/**
+	* @brief Método de alteração para o atributo cor do pelo
+	* @return 
+	*/
+	void setCorPelo(std::string cor_pelo);
 	/**
 	* @brief Efetua a impressão dos dados
 	* @param[in] variável para o <<

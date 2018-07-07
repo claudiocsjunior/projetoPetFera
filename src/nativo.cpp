@@ -10,6 +10,8 @@
 #include "../include/animal_silvestre.h"
 
 Nativo::Nativo(){} /**< Construtor padrão da Classe*/
+Nativo::Nativo(std::string uf_origem, std::string autorizacao, std::string ibama):
+AnimalSilvestre(ibama), uf_origem(uf_origem), autorizacao(autorizacao){}
 Nativo::~Nativo(){} /**< Destrutor da Classe*/
 /**
 * @brief Método de acesso para o uf origem

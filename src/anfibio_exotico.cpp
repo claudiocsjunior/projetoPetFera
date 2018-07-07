@@ -12,6 +12,12 @@
 #include <iostream>
 
 AnfibioExotico::AnfibioExotico():Anfibio("Exotico"){} /**< Construtor padrão da Classe*/
+AnfibioExotico::AnfibioExotico(int id, std::string nome, std::string cientifico, std::string classe, char sexo, float tamanho,
+		std::string natureza, std::string dieta, std::string batismo, Veterinario veterinario, Tratador tratador,
+		int total_mudas, std::string ultima_muda, std::string pais_origem, std::string ibama):
+		Anfibio(id, nome, cientifico, classe, sexo, tamanho, natureza, dieta, batismo, veterinario, tratador, 
+			total_mudas, ultima_muda),
+		Exotico(pais_origem, ibama){}
 AnfibioExotico::~AnfibioExotico(){} /**< Destrutor da Classe*/
 
 /**
@@ -83,4 +89,25 @@ std::ostream& operator<< (std::ostream &o, AnfibioExotico &a) {
 	  << endl;
 	return o;
 }
-																	
+		
+/**
+* @brief Efetua a impressão de dados no formato para arquivo
+* @return string para impressão
+*/
+std::string AnfibioExotico::escreverArquivo(){
+	return to_string(this->id) + ";"
+	  + this->nome + ";"
+	  + this->cientifico + ";"
+	  + this->classe + ";"
+	  + this->sexo + ";"
+	  + to_string(this->tamanho) + ";"
+	  + this->natureza + ";"
+	  + this->dieta + ";"
+	  + this->batismo + ";"
+	  + to_string(this->veterinario.getId()) + ";"
+	  + to_string(this->tratador.getId()) + ";"
+	  + to_string(this->total_mudas) + ";"
+	  + this->ultima_muda + ";"
+	  + this->pais_origem + ";"
+	  +  this->ibama;
+}															

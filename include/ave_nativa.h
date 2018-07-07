@@ -16,6 +16,10 @@ class AveNativa : public Ave, Nativo
 {	
 public:
 	AveNativa(); /**< Construtor padrão da Classe*/
+	AveNativa(int id, std::string nome, std::string cientifico, std::string classe, char sexo, 
+		float tamanho, std::string natureza, std::string dieta, std::string batismo, Veterinario veterinario, 
+		Tratador tratador, float tamanho_bico, float envergadura, std::string uf_origem, std::string autorizacao, 
+		std::string ibama);
 	~AveNativa(); /**< Destrutor da Classe*/
 	/**
 	* @brief Efetua a sobrecarga do operador >>
@@ -31,6 +35,11 @@ public:
 	* @return valor do cout
 	*/
 	friend ostream& operator<<(ostream &e, AveNativa &a);
+	/**
+	* @brief Efetua a impressão de dados no formato para arquivo
+	* @return string para impressão
+	*/
+	std::string escreverArquivo();
 
 };
 

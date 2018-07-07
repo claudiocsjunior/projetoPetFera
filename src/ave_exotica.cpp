@@ -12,6 +12,12 @@
 #include <iostream>
 
 AveExotica::AveExotica():Ave("Exotico"){} /**< Construtor padrão da Classe*/
+AveExotica::AveExotica(int id, std::string nome, std::string cientifico, std::string classe, char sexo, 
+		float tamanho, std::string natureza, std::string dieta, std::string batismo, Veterinario veterinario, 
+		Tratador tratador, float tamanho_bico, float envergadura, std::string pais_origem, std::string ibama):
+		Ave(id, nome, cientifico, classe, sexo, tamanho, natureza, dieta, batismo, veterinario, 
+		tratador, tamanho_bico, envergadura),
+		Exotico(pais_origem, ibama){}
 AveExotica::~AveExotica(){} /**< Destrutor da Classe*/
 
 /**
@@ -83,4 +89,25 @@ std::ostream& operator<< (std::ostream &o, AveExotica &a) {
 	  << endl;
 	return o;
 }
-																	
+	
+/**
+* @brief Efetua a impressão de dados no formato para arquivo
+* @return string para impressão
+*/
+std::string AveExotica::escreverArquivo(){
+	return to_string(this->id) + ";"
+	  + this->nome + ";"
+	  + this->cientifico + ";"
+	  + this->classe + ";"
+	  + this->sexo + ";"
+	  + to_string(this->tamanho) + ";"
+	  + this->natureza + ";"
+	  + this->dieta + ";"
+	  + this->batismo + ";"
+	  + to_string(this->veterinario.getId()) + ";"
+	  + to_string(this->tratador.getId()) + ";"
+	  + to_string(this->tamanho_bico) + ";"
+	  + to_string(this->envergadura) + ";"
+	  + this->pais_origem + ";"
+	  + this->ibama;
+}																				

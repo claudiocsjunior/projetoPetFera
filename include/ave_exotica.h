@@ -16,6 +16,9 @@ class AveExotica : public Ave, Exotico
 {	
 public:
 	AveExotica(); /**< Construtor padrão da Classe*/
+	AveExotica(int id, std::string nome, std::string cientifico, std::string classe, char sexo, 
+		float tamanho, std::string natureza, std::string dieta, std::string batismo, Veterinario veterinario, 
+		Tratador tratador, float tamanho_bico, float envergadura, std::string pais_origem, std::string ibama);
 	~AveExotica(); /**< Destrutor da Classe*/
 	/**
 	* @brief Efetua a sobrecarga do operador >>
@@ -31,6 +34,11 @@ public:
 	* @return valor do cout
 	*/
 	friend ostream& operator<<(ostream &e, AveExotica &a);
+	/**
+	* @brief Efetua a impressão de dados no formato para arquivo
+	* @return string para impressão
+	*/
+	std::string escreverArquivo();
 
 };
 
