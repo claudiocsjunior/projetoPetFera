@@ -174,10 +174,10 @@ istream& operator>>(istream &a, Funcionario &f){
 	cout << "IDADE: ";
 	a >> f.idade;
 
-	cout << "TIPO SANGUINEO: ";
+	cout << "TIPO SANGUINEO (A, B, AB, O): ";
 	a >> f.tipo_sanguineo;
 
-	cout << "FATOR RH: ";
+	cout << "FATOR RH (+,-): ";
 	a >> f.fatorRH;
 	
 	cin.ignore();
@@ -219,5 +219,20 @@ bool Funcionario::operator ==(Funcionario& funcionario){
 		return true;
 	else
 		return false;
+}
+
+/**
+* @brief Método para validação de alguns campos
+* @return 
+*/
+bool Funcionario::validarCampos(){
+	if(this->tipo_sanguineo != "A" && this->tipo_sanguineo != "B" && this->tipo_sanguineo != "AB" && 
+	   this->tipo_sanguineo != "O" && this->tipo_sanguineo != "a" && this->tipo_sanguineo != "b" && 
+	   this->tipo_sanguineo != "ab" && this->tipo_sanguineo != "o" )
+		return false;
+	if(this->fatorRH != '+' && this->fatorRH != '-')
+		return false;
+
+	return true;
 }
 

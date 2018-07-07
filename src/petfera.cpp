@@ -208,6 +208,11 @@ bool PetFera::adicionar_veterinario(){
 			cout << "______________________________________________________________" << endl;
 			throw CampoPreenchidoInadequedamente();
 		}
+		if(!veterinario.validarCampos()){
+			system("clear");
+			cout << "______________________________________________________________" << endl;
+			throw CampoPreenchidoInadequedamente();
+		}
 		try{
 			map<int,Funcionario>::iterator it;
 			for (it = funcionarios.begin(); it != funcionarios.end(); ++it)
@@ -247,6 +252,11 @@ bool PetFera::adicionar_tratador(){
 	try{
 		cin >> tratador;
 		if(cin.fail()){
+			system("clear");
+			cout << "______________________________________________________________" << endl;
+			throw CampoPreenchidoInadequedamente();
+		}
+		if(!tratador.validarCampos()){
 			system("clear");
 			cout << "______________________________________________________________" << endl;
 			throw CampoPreenchidoInadequedamente();
@@ -1380,6 +1390,7 @@ void PetFera::recuperar_informacoes_arquivo(){
 	string line;
 	try{
 	fstream arqFuncionarios;
+
 	arqFuncionarios.open("funcionarios.csv");
 	
 	
@@ -1428,92 +1439,99 @@ void PetFera::recuperar_informacoes_arquivo(){
 				if(line != ""){
 					std::vector<std::string> result = split_string(line, ";");
 						map<int, Funcionario>::iterator busca_vet = funcionarios.find(atoi(result[9].c_str()));
-						Veterinario & vet = static_cast<Veterinario&>(busca_vet->second);
+						
 						map<int, Funcionario>::iterator busca_trat = funcionarios.find(atoi(result[10].c_str()));
+						
+					if (busca_vet != funcionarios.end() && busca_trat != funcionarios.end()){
+						Veterinario & vet = static_cast<Veterinario&>(busca_vet->second);
 						Tratador &trat = static_cast<Tratador&>(busca_trat->second);
+						if(result[3] == "Amphibia" && result[6] == "Nativo"){
 
-					if(result[3] == "Amphibia" && result[6] == "Nativo"){
+							AnfibioNativo anfibio_nativo(atoi(result[0].c_str()), result[1], result[2], result[3], 
+							result[4][0], atoi(result[5].c_str()) , result[6], result[7], result[8], vet, 
+							trat, atoi(result[11].c_str()), result[12], result[13], result[14], result[15]);
 
-						AnfibioNativo anfibio_nativo(atoi(result[0].c_str()), result[1], result[2], result[3], 
-						result[4][0], atoi(result[5].c_str()) , result[6], result[7], result[8], vet, 
-						trat, atoi(result[11].c_str()), result[12], result[13], result[14], result[15]);
+							//cout << anfibio_nativo << endl;
+							anfibios_nativos[anfibio_nativo.getId()] = anfibio_nativo;
+							Animal & animalBasico = static_cast<Animal&>(anfibio_nativo);
+							mapeamento_busca[anfibio_nativo.getId()] = animalBasico;
 
-						//cout << anfibio_nativo << endl;
-						anfibios_nativos[anfibio_nativo.getId()] = anfibio_nativo;
-						Animal & animalBasico = static_cast<Animal&>(anfibio_nativo);
-						mapeamento_busca[anfibio_nativo.getId()] = animalBasico;
+						}else if(result[3] == "Amphibia" && result[6] == "Exotico"){
 
-					}else if(result[3] == "Amphibia" && result[6] == "Exotico"){
+							AnfibioExotico anfibio_exotico(atoi(result[0].c_str()), result[1], result[2], result[3], 
+							result[4][0], atoi(result[5].c_str()) , result[6], result[7], result[8], vet, 
+							trat, atoi(result[11].c_str()), result[12], result[13], result[14]);
 
-						AnfibioExotico anfibio_exotico(atoi(result[0].c_str()), result[1], result[2], result[3], 
-						result[4][0], atoi(result[5].c_str()) , result[6], result[7], result[8], vet, 
-						trat, atoi(result[11].c_str()), result[12], result[13], result[14]);
+							//cout << anfibio_exotico << endl;
+							anfibios_exoticos[anfibio_exotico.getId()] = anfibio_exotico;
+							Animal & animalBasico = static_cast<Animal&>(anfibio_exotico);
+							mapeamento_busca[anfibio_exotico.getId()] = animalBasico;
 
-						//cout << anfibio_exotico << endl;
-						anfibios_exoticos[anfibio_exotico.getId()] = anfibio_exotico;
-						Animal & animalBasico = static_cast<Animal&>(anfibio_exotico);
-						mapeamento_busca[anfibio_exotico.getId()] = animalBasico;
+						}else if(result[3] == "Mammalia" && result[6] == "Nativo"){
+							MamiferoNativo mamiferos_nativo(atoi(result[0].c_str()), result[1], result[2], result[3], 
+							result[4][0], atoi(result[5].c_str()) , result[6], result[7], result[8], vet, 
+							trat, result[11], result[12], result[13], result[14]);
 
-					}else if(result[3] == "Mammalia" && result[6] == "Nativo"){
-						MamiferoNativo mamiferos_nativo(atoi(result[0].c_str()), result[1], result[2], result[3], 
-						result[4][0], atoi(result[5].c_str()) , result[6], result[7], result[8], vet, 
-						trat, result[11], result[12], result[13], result[14]);
+							//cout << mamiferos_nativo << endl;
+							mamiferos_nativos[mamiferos_nativo.getId()] = mamiferos_nativo;
+							Animal & animalBasico = static_cast<Animal&>(mamiferos_nativo);
+							mapeamento_busca[mamiferos_nativo.getId()] = animalBasico;
 
-						//cout << mamiferos_nativo << endl;
-						mamiferos_nativos[mamiferos_nativo.getId()] = mamiferos_nativo;
-						Animal & animalBasico = static_cast<Animal&>(mamiferos_nativo);
-						mapeamento_busca[mamiferos_nativo.getId()] = animalBasico;
+						}else if(result[3] == "Mammalia" && result[6] == "Exotico"){
+							MamiferoExotico mamifero_exotico(atoi(result[0].c_str()), result[1], result[2], result[3], 
+							result[4][0], atoi(result[5].c_str()) , result[6], result[7], result[8], vet, 
+							trat, result[11], result[12], result[13]);
 
-					}else if(result[3] == "Mammalia" && result[6] == "Exotico"){
-						MamiferoExotico mamifero_exotico(atoi(result[0].c_str()), result[1], result[2], result[3], 
-						result[4][0], atoi(result[5].c_str()) , result[6], result[7], result[8], vet, 
-						trat, result[11], result[12], result[13]);
+							//cout << mamiferos_nativo << endl;
+							mamiferos_exoticos[mamifero_exotico.getId()] = mamifero_exotico;
+							Animal & animalBasico = static_cast<Animal&>(mamifero_exotico);
+							mapeamento_busca[mamifero_exotico.getId()] = animalBasico;
 
-						//cout << mamiferos_nativo << endl;
-						mamiferos_exoticos[mamifero_exotico.getId()] = mamifero_exotico;
-						Animal & animalBasico = static_cast<Animal&>(mamifero_exotico);
-						mapeamento_busca[mamifero_exotico.getId()] = animalBasico;
+						}else if(result[3] == "Reptilia" && result[6] == "Nativo"){
+							ReptilNativo reptil_nativo(atoi(result[0].c_str()), result[1], result[2], result[3], 
+							result[4][0], atoi(result[5].c_str()) , result[6], result[7], result[8], vet, 
+							trat, atoi(result[11].c_str()), result[12], result[13], result[14], result[15]);
 
-					}else if(result[3] == "Reptilia" && result[6] == "Nativo"){
-						ReptilNativo reptil_nativo(atoi(result[0].c_str()), result[1], result[2], result[3], 
-						result[4][0], atoi(result[5].c_str()) , result[6], result[7], result[8], vet, 
-						trat, atoi(result[11].c_str()), result[12], result[13], result[14], result[15]);
+							//cout << mamiferos_nativo << endl;
+							repteis_nativos[reptil_nativo.getId()] = reptil_nativo;
+							Animal & animalBasico = static_cast<Animal&>(reptil_nativo);
+							mapeamento_busca[reptil_nativo.getId()] = animalBasico;
 
-						//cout << mamiferos_nativo << endl;
-						repteis_nativos[reptil_nativo.getId()] = reptil_nativo;
-						Animal & animalBasico = static_cast<Animal&>(reptil_nativo);
-						mapeamento_busca[reptil_nativo.getId()] = animalBasico;
+						}else if(result[3] == "Reptilia" && result[6] == "Exotico"){
+							ReptilExotico reptil_exotico(atoi(result[0].c_str()), result[1], result[2], result[3], 
+							result[4][0], atoi(result[5].c_str()) , result[6], result[7], result[8], vet, 
+							trat, atoi(result[11].c_str()), result[12], result[13], result[14]);
 
-					}else if(result[3] == "Reptilia" && result[6] == "Exotico"){
-						ReptilExotico reptil_exotico(atoi(result[0].c_str()), result[1], result[2], result[3], 
-						result[4][0], atoi(result[5].c_str()) , result[6], result[7], result[8], vet, 
-						trat, atoi(result[11].c_str()), result[12], result[13], result[14]);
+							//cout << mamiferos_nativo << endl;
+							repteis_exoticos[reptil_exotico.getId()] = reptil_exotico;
+							Animal & animalBasico = static_cast<Animal&>(reptil_exotico);
+							mapeamento_busca[reptil_exotico.getId()] = animalBasico;
 
-						//cout << mamiferos_nativo << endl;
-						repteis_exoticos[reptil_exotico.getId()] = reptil_exotico;
-						Animal & animalBasico = static_cast<Animal&>(reptil_exotico);
-						mapeamento_busca[reptil_exotico.getId()] = animalBasico;
+						}else if(result[3] == "Aves" && result[6] == "Nativo"){
+							AveNativa ave_nativa(atoi(result[0].c_str()), result[1], result[2], result[3], 
+							result[4][0], atoi(result[5].c_str()) , result[6], result[7], result[8], vet, 
+							trat, atoi(result[11].c_str()), atoi(result[12].c_str()), result[13], result[14], result[15]);
 
-					}else if(result[3] == "Aves" && result[6] == "Nativo"){
-						AveNativa ave_nativa(atoi(result[0].c_str()), result[1], result[2], result[3], 
-						result[4][0], atoi(result[5].c_str()) , result[6], result[7], result[8], vet, 
-						trat, atoi(result[11].c_str()), atoi(result[12].c_str()), result[13], result[14], result[15]);
+							//cout << mamiferos_nativo << endl;
+							aves_nativas[ave_nativa.getId()] = ave_nativa;
+							Animal & animalBasico = static_cast<Animal&>(ave_nativa);
+							mapeamento_busca[ave_nativa.getId()] = animalBasico;
 
-						//cout << mamiferos_nativo << endl;
-						aves_nativas[ave_nativa.getId()] = ave_nativa;
-						Animal & animalBasico = static_cast<Animal&>(ave_nativa);
-						mapeamento_busca[ave_nativa.getId()] = animalBasico;
+						}else if(result[3] == "Aves" && result[6] == "Exotico"){
+							AveExotica ave_exotica(atoi(result[0].c_str()), result[1], result[2], result[3], 
+							result[4][0], atoi(result[5].c_str()) , result[6], result[7], result[8], vet, 
+							trat, atoi(result[11].c_str()), atoi(result[12].c_str()), result[13], result[14]);
 
-					}else if(result[3] == "Aves" && result[6] == "Exotico"){
-						AveExotica ave_exotica(atoi(result[0].c_str()), result[1], result[2], result[3], 
-						result[4][0], atoi(result[5].c_str()) , result[6], result[7], result[8], vet, 
-						trat, atoi(result[11].c_str()), atoi(result[12].c_str()), result[13], result[14]);
+							//cout << mamiferos_nativo << endl;
+							aves_exoticas[ave_exotica.getId()] = ave_exotica;
+							Animal & animalBasico = static_cast<Animal&>(ave_exotica);
+							mapeamento_busca[ave_exotica.getId()] = animalBasico;
+						}	
+					}else{
 
-						//cout << mamiferos_nativo << endl;
-						aves_exoticas[ave_exotica.getId()] = ave_exotica;
-						Animal & animalBasico = static_cast<Animal&>(ave_exotica);
-						mapeamento_busca[ave_exotica.getId()] = animalBasico;
-					}	
+						cout << "______________________________________________________________" << endl;	
+						cout << "ANIMAL COM ID " << result[0] << " ESTÁ SEM REFERENCIA DE FUNCIONÁRIOS E NÃO PÔDE SER ADICIONADO." << endl;
+					}
 				}
 			}
 			arqAnimais.close();

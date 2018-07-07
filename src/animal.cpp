@@ -271,7 +271,7 @@ Animal::print(std::ostream &o) {
 	  << "| NOME: " << this->nome
 	  << "| NOME CIENTIFICO: " <<  this->cientifico
 	  << "| CLASSE: " <<  this->classe
-	  << "| SEXO: " << this->sexo
+	  << "| SEXO (M | F): " << this->sexo
 	  << "| TAMANHO: " <<  this->tamanho
 	  << "| DIETA: " <<  this->dieta
 	  << "| BATISMO: " <<  this->batismo

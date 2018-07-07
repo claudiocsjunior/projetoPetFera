@@ -123,6 +123,11 @@ public:
 	* @return booleano
 	*/
 	bool operator==(Funcionario &funcionario);
+	/**
+	* @brief Método para validação de alguns campos
+	* @return 
+	*/
+	bool validarCampos();
 
 };
 
